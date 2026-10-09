@@ -1,0 +1,28 @@
+name: orchestra
+services:
+  load:
+    build: .
+    image: project-orchestra:local
+    init: true
+    env_file: .env
+    environment:
+      ORCHESTRA_CONFIG: /config/orchestra.json
+    volumes:
+      - ./config/orchestra.json:/config/orchestra.json:ro
+      - ${ORCHESTRA_CERT_DIR:-./certificates}:/run/certs:ro
+      - reports:/results
+    networks: [agora-services, agora-web]
+    security_opt: [no-new-privileges:true]
+    # Entry point installs the public SQL CA, then drops to UID 10001.
+    # No Docker socket or application private keys are mounted in load workers.
+networks:
+  agora-services:
+    external: true
+    name: agora-services
+  agora-web:
+    external: true
+    name: agora-web
+
+volumes:
+  reports:
+    name: orchestra-reports

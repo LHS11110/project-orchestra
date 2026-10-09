@@ -1,0 +1,289 @@
+{
+  "environment": "lab",
+  "recovery_timeout": 120,
+  "nodes": {
+    "nginx": {
+      "container": "agora-nginx",
+      "compose_project": "agora-gateway",
+      "networks": [
+        "agora-services",
+        "agora-web"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "frontend": {
+      "container": "agora-frontend-dev",
+      "compose_project": "project-agora-fe",
+      "networks": [
+        "agora-web"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "spring": {
+      "container": "agora-spring",
+      "compose_project": "agora-backend",
+      "networks": [
+        "agora-services"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "cpp": {
+      "container": "agora-cpp",
+      "compose_project": "agora-backend",
+      "networks": [
+        "agora-services"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "phoenix": {
+      "container": "agora-broker",
+      "compose_project": "agora-broker",
+      "networks": [
+        "agora-services"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "storage-broker": {
+      "container": "agora-storage-broker",
+      "compose_project": "agora-storage-broker",
+      "networks": [
+        "agora-services",
+        "agora-net",
+        "agora-redis-ha"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "mssql": {
+      "container": "agora-mssql",
+      "compose_project": "project-agora-db",
+      "networks": [
+        "agora-net"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "elasticsearch": {
+      "container": "agora-elasticsearch",
+      "compose_project": "project-agora-db",
+      "networks": [
+        "agora-net"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "redis-primary": {
+      "container": "agora-redis-primary",
+      "compose_project": "project-agora-db",
+      "networks": [
+        "agora-redis-ha"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "redis-replica-1": {
+      "container": "agora-redis-replica-1",
+      "compose_project": "project-agora-db",
+      "networks": [
+        "agora-redis-ha"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "redis-replica-2": {
+      "container": "agora-redis-replica-2",
+      "compose_project": "project-agora-db",
+      "networks": [
+        "agora-redis-ha"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "sentinel-1": {
+      "container": "agora-redis-sentinel-1",
+      "compose_project": "project-agora-db",
+      "networks": [
+        "agora-redis-ha"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "sentinel-2": {
+      "container": "agora-redis-sentinel-2",
+      "compose_project": "project-agora-db",
+      "networks": [
+        "agora-redis-ha"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "sentinel-3": {
+      "container": "agora-redis-sentinel-3",
+      "compose_project": "project-agora-db",
+      "networks": [
+        "agora-redis-ha"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    },
+    "search-embedding": {
+      "container": "agora-search-embedding",
+      "compose_project": "agora-search",
+      "networks": [
+        "agora-services"
+      ],
+      "faults": [
+        "pause",
+        "stop",
+        "disconnect",
+        "cpu"
+      ]
+    }
+  },
+  "load": {
+    "gateway": {
+      "url": "https://agora-nginx",
+      "ca_env": "ORCHESTRA_SERVICE_CA"
+    },
+    "frontend": {
+      "url": "https://agora-frontend-dev:5173",
+      "ca_env": "ORCHESTRA_SERVICE_CA"
+    },
+    "spring": {
+      "url": "https://agora-spring:8080",
+      "ca_env": "ORCHESTRA_SERVICE_CA"
+    },
+    "cpp": {
+      "url": "https://agora-nginx:8444",
+      "ca_env": "ORCHESTRA_SERVICE_CA",
+      "server_id": 1
+    },
+    "phoenix": {
+      "url": "https://agora-broker:4443",
+      "ca_env": "ORCHESTRA_SERVICE_CA",
+      "tls_server_name": "agora-nginx"
+    },
+    "elasticsearch": {
+      "url": "https://agora-elasticsearch:9200",
+      "ca_env": "ORCHESTRA_ES_CA",
+      "index": "canvas"
+    },
+    "canvas": {
+      "url": "https://agora-nginx",
+      "ca_env": "ORCHESTRA_SERVICE_CA",
+      "canvas_id": 1,
+      "item_id": "orchestra-read-only"
+    },
+    "mssql": {
+      "host": "agora-mssql",
+      "port": 1433,
+      "database": "agora_db",
+      "tls_server_name": "agora-mssql"
+    },
+    "redis": {
+      "master_name": "agora-master",
+      "nodes": [
+        {
+          "identity": "172.20.0.2",
+          "port": 6379,
+          "dial_host": "agora-storage-broker",
+          "dial_port": 16379
+        },
+        {
+          "identity": "172.20.0.7",
+          "port": 6379,
+          "dial_host": "agora-storage-broker",
+          "dial_port": 16380
+        },
+        {
+          "identity": "172.20.0.5",
+          "port": 6379,
+          "dial_host": "agora-storage-broker",
+          "dial_port": 16381
+        }
+      ],
+      "sentinels": [
+        {
+          "identity": "172.20.0.6",
+          "port": 26379,
+          "dial_host": "agora-storage-broker",
+          "dial_port": 26379
+        },
+        {
+          "identity": "172.20.0.3",
+          "port": 26379,
+          "dial_host": "agora-storage-broker",
+          "dial_port": 26380
+        },
+        {
+          "identity": "172.20.0.4",
+          "port": 26379,
+          "dial_host": "agora-storage-broker",
+          "dial_port": 26381
+        }
+      ],
+      "document_key": "canvas:1"
+    }
+  }
+}
