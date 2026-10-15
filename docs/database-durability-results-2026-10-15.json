@@ -1,0 +1,224 @@
+{
+  "runId": "93979c910272",
+  "startedAt": "2026-10-15T12:11:16Z",
+  "recordsPerCase": 1000,
+  "productionFaultsInjected": false,
+  "scope": "Acknowledged-write retention after clean restart, process SIGKILL and container replacement on the same Docker volume",
+  "limitations": [
+    "Host OS page cache survives SIGKILL; this is not a power-loss test",
+    "No physical disk loss, bit rot, backup restore or whole-host failover test",
+    "Redis stale promotion is manual and deliberately follows a replication outage; Sentinel RTO not measured",
+    "Lab uses private loopback/internal networking; TLS and app end-to-end crash semantics are outside this DB-only experiment"
+  ],
+  "databases": {
+    "redis": {
+      "image": "redis:8.6.7",
+      "settings": {
+        "appendonly": "yes",
+        "appendfsync": "everysec",
+        "min-replicas-to-write": 0
+      },
+      "cases": [
+        {
+          "fault": "graceful_restart",
+          "newAcknowledged": 1000,
+          "writeBatchMs": 37.64067299925955,
+          "faultToQueryableMs": 362.4021029972937,
+          "acknowledgedTotal": 1000,
+          "recovered": 1000,
+          "missing": 0,
+          "payloadMismatches": 0
+        },
+        {
+          "fault": "sigkill_restart",
+          "newAcknowledged": 1000,
+          "writeBatchMs": 55.77355199784506,
+          "faultToQueryableMs": 338.3429149980657,
+          "acknowledgedTotal": 2000,
+          "recovered": 2000,
+          "missing": 0,
+          "payloadMismatches": 0
+        },
+        {
+          "fault": "kill_and_recreate",
+          "newAcknowledged": 1000,
+          "writeBatchMs": 37.85314800188644,
+          "faultToQueryableMs": 1023.9929250019486,
+          "acknowledgedTotal": 3000,
+          "recovered": 3000,
+          "missing": 0,
+          "payloadMismatches": 0
+        }
+      ],
+      "replicationGap": {
+        "scenario": "all_available_replicas_offline_during_acknowledged_writes_then_manual_stale_promotion",
+        "baselineRecords": 3000,
+        "acknowledgedDuringReplicationGap": 250,
+        "faultToPromotedQueryableMs": 584.202149999328,
+        "acknowledgedTotal": 3250,
+        "recovered": 3000,
+        "missing": 250,
+        "payloadMismatches": 0,
+        "automaticSentinelFailoverTested": false
+      },
+      "imageId": "sha256:a323342084bc0350cc66feb7f6e11282c8d853b5e7e729de3b0e81ed88381196"
+    },
+    "mssql": {
+      "image": "mcr.microsoft.com/mssql/server:2022-CU27-ubuntu-22.04",
+      "settings": {
+        "edition": "Express",
+        "recovery_model": "FULL",
+        "delayed_durability": "DISABLED"
+      },
+      "gracefulStopMethod": "SQL SHUTDOWN (engine checkpoint and exit)",
+      "cases": [
+        {
+          "fault": "graceful_restart",
+          "newAcknowledged": 1000,
+          "acknowledgedTotal": 1000,
+          "missing": 0,
+          "writeBatchMs": 6020.043317003001,
+          "faultToQueryableMs": 6395.224596999469,
+          "recovered": 1000,
+          "payloadMismatches": 0
+        },
+        {
+          "fault": "sigkill_restart",
+          "newAcknowledged": 1000,
+          "acknowledgedTotal": 2000,
+          "missing": 0,
+          "writeBatchMs": 6252.703932994336,
+          "faultToQueryableMs": 6793.023901998822,
+          "recovered": 2000,
+          "payloadMismatches": 0
+        },
+        {
+          "fault": "kill_and_recreate",
+          "newAcknowledged": 1000,
+          "acknowledgedTotal": 3000,
+          "missing": 0,
+          "writeBatchMs": 6252.556601000833,
+          "faultToQueryableMs": 7155.378620002011,
+          "recovered": 3000,
+          "payloadMismatches": 0
+        }
+      ],
+      "uncommittedRollback": {
+        "uncommittedRowsAfterRecovery": 0,
+        "committed": {
+          "recovered": 3000,
+          "payloadMismatches": 0
+        },
+        "faultToQueryableMs": 6655.865756001731
+      },
+      "imageId": "sha256:4402d880dd4c34bfa7d8705e56a86cd6c88da80a1f6bbbe741f999e76264a090"
+    },
+    "elasticsearch": {
+      "image": "project-agora-elasticsearch:8.19.22-nori",
+      "settings": {
+        "translog.durability": "request",
+        "number_of_replicas": 0
+      },
+      "cases": [
+        {
+          "fault": "graceful_restart",
+          "newAcknowledged": 1000,
+          "acknowledgedTotal": 1000,
+          "recovered": 1000,
+          "missing": 0,
+          "payloadMismatches": 0,
+          "writeBatchMs": 2208.7861570034875,
+          "faultToQueryableMs": 26835.10840300005
+        },
+        {
+          "fault": "sigkill_restart",
+          "newAcknowledged": 1000,
+          "acknowledgedTotal": 2000,
+          "recovered": 2000,
+          "missing": 0,
+          "payloadMismatches": 0,
+          "writeBatchMs": 882.4147570048808,
+          "faultToQueryableMs": 25304.06008600403
+        },
+        {
+          "fault": "kill_and_recreate",
+          "newAcknowledged": 1000,
+          "acknowledgedTotal": 3000,
+          "recovered": 3000,
+          "missing": 0,
+          "payloadMismatches": 0,
+          "writeBatchMs": 337.05427100358065,
+          "faultToQueryableMs": 22267.560020001838
+        }
+      ],
+      "imageId": "sha256:d7427921515800d3da0526806dd5ad10b9d547006f39220162ba0b9ac6ff0946"
+    }
+  },
+  "cleanupFailures": [],
+  "finishedAt": "2026-10-15T12:13:36Z",
+  "setupObservations": [
+    {
+      "database": "mssql",
+      "observation": "Docker stop with a 30-second grace period escalated to SIGKILL. SQL normal-shutdown measurement was rerun using engine SHUTDOWN.",
+      "retentionMeasuredForTimedOutAttempt": false
+    }
+  ],
+  "databaseRunIds": {
+    "redis": "93979c910272",
+    "mssql": "aac14917c2b6",
+    "elasticsearch": "93979c910272"
+  },
+  "liveSettings": {
+    "sql": [
+      {
+        "version": "16.0.4295.3",
+        "edition": "Express Edition (64-bit)",
+        "name": "agora_db",
+        "recovery_model_desc": "FULL",
+        "delayed_durability_desc": "DISABLED",
+        "page_verify_option_desc": "CHECKSUM"
+      }
+    ],
+    "elasticsearch": {
+      "canvas": {
+        "settings": {
+          "index": {
+            "number_of_shards": "1",
+            "number_of_replicas": "0"
+          }
+        },
+        "defaults": {
+          "index": {
+            "translog": {
+              "flush_threshold_age": "1m",
+              "generation_threshold_size": "64mb",
+              "flush_threshold_size": "10gb",
+              "sync_interval": "5s",
+              "retention": {
+                "size": "-1",
+                "age": "-1"
+              },
+              "durability": "REQUEST"
+            }
+          }
+        }
+      }
+    },
+    "redis": {
+      "appendfsync": "everysec",
+      "min-replicas-to-write": "0",
+      "min-replicas-max-lag": "10",
+      "appendonly": "yes",
+      "save": "3600 1 300 100 60 10000",
+      "no-appendfsync-on-rewrite": "no"
+    }
+  },
+  "allAcknowledgedWritesRetainedAcrossSameVolumeCases": true,
+  "physicalPowerLossTested": false,
+  "testResourcesRemaining": {
+    "containers": [],
+    "volumes": [],
+    "networks": []
+  },
+  "liveSettingsUnchangedAfterTest": true
+}

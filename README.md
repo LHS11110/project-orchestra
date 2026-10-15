@@ -5,6 +5,7 @@ Agora 인프라의 구조, 순차 기동, 장애 실험, 노드별 부하 시험
 - [개발용·배포용 실행](docs/STARTUP.md): 노드별 순차 기동, 준비 상태 확인, FE 모드 전환.
 - [인프라 아키텍처와 역할](docs/ARCHITECTURE.md): 저장소별 책임, 통신 경로, 메모리 계층, 호스트 동기화, TLS, 현재 병목.
 - [카오스 실험](docs/CHAOS.md): 단일 노드 장애, 제한된 무작위 장애, 복구 절차와 검증 기준.
+- [DB 내구성 실측](docs/DATABASE_DURABILITY.md): 저장 확인 데이터의 재시작·강제 종료·볼륨 재사용 및 Redis 복제 단절 시험.
 - [검증 기록](docs/VALIDATION.md): 격리 시험 결과와 현재 실행 배포의 차이.
 - [Locust 부하 시험](docs/LOAD_TESTING.md): 노드별 프로필, 인증·인증서 설정, 보고서와 자원 측정.
 
