@@ -173,13 +173,20 @@ class Runner:
         elif step.action == 'gateway-start':
             self.call((sys.executable, str(step.cwd / 'scripts/preflight.py')), step.cwd)
             if self.mode == 'production':
-                self.call(compose(step.cwd, 'docker-compose.nginx.yml', 'run', '--rm', '--no-deps', '--entrypoint', 'sh',
-                    'nginx', '-c', 'test -f /usr/share/nginx/html/current/index.html'), step.cwd)
-            self.call(compose(step.cwd, 'docker-compose.nginx.yml', 'up', '-d', '--force-recreate', '--wait',
+                self.call(('docker', 'run', '--rm', '--network', 'none', '--mount',
+                    'type=volume,src=agora-frontend-dist,dst=/frontend,readonly',
+                    'nginx:stable-alpine', 'sh', '-c', 'test -f /frontend/current/index.html'), step.cwd)
+            self.call(compose(step.cwd, 'docker-compose.nginx.yml', 'up', '-d', '--wait',
                 '--wait-timeout', str(self.wait), 'nginx'), step.cwd)
+            # Bind-mounted templates can change without a Compose config change.
+            # Regenerate them and reload gracefully, preserving established sockets.
+            self.call(compose(step.cwd, 'docker-compose.nginx.yml', 'exec', '-T', 'nginx',
+                '/docker-entrypoint.d/20-envsubst-on-templates.sh'), step.cwd)
             self.call(compose(step.cwd, 'docker-compose.nginx.yml', 'exec', '-T', 'nginx', 'nginx', '-t'), step.cwd)
+            self.call(compose(step.cwd, 'docker-compose.nginx.yml', 'exec', '-T', 'nginx', 'nginx', '-s', 'reload'), step.cwd)
         elif step.action == 'gateway-probe':
-            for path in ('/', '/api/auth/health'):
+            paths = ('/', '/api/auth/health', '/@vite/client') if self.mode == 'development' else ('/', '/api/auth/health')
+            for path in paths:
                 self.call(('docker', 'exec', 'agora-nginx', 'curl', '--fail', '--silent', '--show-error',
                     '--connect-timeout', '3', '--max-time', '10', '--cacert', '/etc/nginx/ssl/agora/ca.pem',
                     '--output', '/dev/null', 'https://localhost' + path), step.cwd)

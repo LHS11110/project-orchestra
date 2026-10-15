@@ -80,16 +80,34 @@ class StartupTests(unittest.TestCase):
         step = next(step for step in create_plan(self.repos, 'development') if step.action == 'web-network')
         runner.execute(step)
         self.assertIn('create', commands[-1]); self.assertNotIn('up', commands[-1])
-    def test_gateway_is_recreated_and_checked_with_tls(self):
+    def test_gateway_reloads_without_forcing_recreation_and_checks_tls(self):
         runner = Runner(self.repos, 'production', 123, True); commands = []
         runner.call = lambda command, cwd, **kwargs: commands.append(command)
         plan = create_plan(self.repos, 'production')
         runner.execute(next(step for step in plan if step.action == 'gateway-start'))
         runner.execute(next(step for step in plan if step.action == 'gateway-probe'))
-        self.assertTrue(any('--force-recreate' in command and '--wait' in command for command in commands))
+        self.assertTrue(any('up' in command and '--wait' in command for command in commands))
+        self.assertFalse(any('--force-recreate' in command for command in commands))
+        regenerate = next(i for i, command in enumerate(commands) if '/docker-entrypoint.d/20-envsubst-on-templates.sh' in command)
+        validate = next(i for i, command in enumerate(commands) if command[-2:] == ('nginx', '-t'))
+        reload = next(i for i, command in enumerate(commands) if command[-3:] == ('nginx', '-s', 'reload'))
+        self.assertLess(regenerate, validate)
+        self.assertLess(validate, reload)
+        checks = [command for command in commands if command[:2] == ('docker', 'run')]
+        self.assertEqual(len(checks), 1)
+        self.assertEqual(checks[0][checks[0].index('--network') + 1], 'none')
+        self.assertIn('type=volume,src=agora-frontend-dist,dst=/frontend,readonly', checks[0])
         probes = [command for command in commands if command[:2] == ('docker', 'exec')]
         self.assertEqual(len(probes), 2)
         self.assertTrue(all('--cacert' in command and command[-1].startswith('https://') for command in probes))
+    def test_development_probe_checks_vite_client(self):
+        runner = Runner(self.repos, 'development', 123, False); commands = []
+        runner.call = lambda command, cwd, **kwargs: commands.append(command)
+        step = next(step for step in create_plan(self.repos, 'development') if step.action == 'gateway-probe')
+        runner.execute(step)
+        self.assertEqual([command[-1] for command in commands],
+                         ['https://localhost/', 'https://localhost/api/auth/health', 'https://localhost/@vite/client'])
+        self.assertTrue(all('--cacert' in command for command in commands))
     def test_env_values_are_not_shell_evaluated(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory, '.env'); path.write_text('ORCHESTRA_TEST_LITERAL=$(echo forbidden)\n'); path.chmod(0o600)

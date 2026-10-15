@@ -37,3 +37,13 @@ GitHub Actions는 단위·TLS 시험, 임시 Docker 장애 시험 및 이미지 
 개발용·배포용 기동 스크립트를 추가한 뒤 전체 unittest 32개가 통과했습니다. 추가 9개는 저장소별 순서·health 대기, TLS volume 단계, Spring→C++ 의존성, 개발 FE 시작 순서, 정적 export 후 Nginx 전환, 실패 시 후속 단계 차단·lock 해제, 계획의 무변경 실행을 검사합니다.
 
 현재 설정에서 `start-dev.sh --check`와 `start-deploy.sh --check`가 통과했고 두 모드의 `--plan`과 쉘 문법도 확인했습니다. 실제 Agora 컨테이너를 기동·재시작하는 명령은 이 검증에서 실행하지 않았습니다.
+
+## 실제 개발 배포 검증 — 2026-10-13
+
+동일 호스트의 기존 인증서·환경 파일·데이터 volume을 사용하여 Orchestra `./scripts/start-dev.sh`를 실제 실행했습니다. 기본 DB 초기화, 이미지 빌드, 저장소·Spring·C++·검색 worker·Phoenix·Vite·Nginx의 26개 순차 단계를 완료했습니다. `./scripts/start-dev.sh --skip-initialize --no-build`의 23개 재기동 단계도 완료했습니다. 새 호스트의 빈 DB를 구성하는 시험은 수행하지 않았습니다.
+
+공개 HTTPS 경로에서 홈페이지, API health, `/@vite/client`, `/src/main.jsx`가 200을 반환했습니다. Vite HMR WebSocket은 101로 연결됐으며, 임시 소스 모듈을 변경했을 때 해당 모듈의 HMR update 이벤트를 수신했습니다. 임시 모듈은 제거했습니다. 캔버스 2009의 접속 API는 200, canvas·RTC WSS는 각각 101을 반환했습니다. 테스트 토큰과 서비스 비밀 값은 보고서에 기록하지 않았습니다.
+
+호스트 Nginx의 일반 `/` 프록시에 WebSocket 전환 헤더가 없어 HMR이 200 응답으로 실패하는 문제를 수정했습니다. Orchestra의 개발용 최종 probe에는 Vite 클라이언트 경로 검사를 추가했습니다. startup 단위 시험 11개와 core 시험 18개가 통과했습니다. 이 검증은 HTTP/WSS 및 HMR 메시지 수준이며 실제 브라우저 렌더링이나 부하·장애 시험은 포함하지 않습니다.
+
+검증 후 `./scripts/start-deploy.sh --no-build`의 23개 단계로 운영 모드에 복원했습니다. Vite 중지와 Nginx production 모드를 확인했으며, 공개 홈페이지·API는 200, 캔버스·RTC WSS는 101로 다시 확인했습니다.

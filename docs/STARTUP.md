@@ -7,6 +7,8 @@ Orchestra에서 네 Agora 저장소의 기존 Compose와 초기화 도구를 순
 ```sh
 # 현재 설정으로 개발용 실행
 ./scripts/start-dev.sh
+# 이미 초기화한 환경을 기존 이미지로 빠르게 재기동
+./scripts/start-dev.sh --skip-initialize --no-build
 # 처음 clone한 환경: 제공한 인증서로 기존 설정 도구 실행 후 개발용 기동
 ./scripts/start-dev.sh --tls-dir /path/to/certificates
 
@@ -44,7 +46,7 @@ Orchestra에서 네 Agora 저장소의 기존 Compose와 초기화 도구를 순
 7. E5 검색 worker를 빌드·시작하고 최초 메타데이터 projection 동기화를 기다립니다. Nori 플러그인이 포함된 ES 이미지를 사용하며 DB 초기화를 생략해도 검색 alias와 앱 계정 권한은 확인·적용합니다. 그 뒤 BE HTTPS와 ES 로그 계정 인증을 확인하고 Phoenix TLS volume 및 브로커를 준비합니다.
 8. 개발용은 필요할 때 Nginx를 **생성만 하여** Compose 소유 `agora-web` 네트워크를 준비한 뒤 Vite를 시작·확인합니다. 배포용은 FE 정적 release를 export합니다.
 9. Nginx를 해당 모드로 재생성하고 healthcheck·`nginx -t`를 확인합니다. 배포용은 이 단계 이후 관리되는 Vite를 중지합니다.
-10. Nginx 내부에서 CA 검증을 사용해 `/`와 `/api/auth/health`의 HTTPS 성공을 확인합니다.
+10. Nginx 내부에서 CA 검증을 사용해 `/`와 `/api/auth/health`의 HTTPS 성공을 확인합니다. 개발 모드에서는 `/@vite/client`도 확인하여 Vite 연결을 검증합니다.
 
 Redis Insight HTTP 관리 UI, Locust 부하·카오스 도구, 별도 백업 cron 작업은 자동 시작하지 않습니다. ES 초기화를 선택하면 기존 스크립트가 ILM·SLM 보존 및 snapshot 예약 정책도 적용합니다. 저장소 노드는 기본 Compose 구성과 이름을 사용하며 이미 실행 중이면 Compose가 현재 정의와 맞춰 처리합니다. 애플리케이션·브로커·Nginx·개발 FE는 최신 이미지·설정·TLS를 읽도록 재생성합니다. 무중단 롤링 배포 방식은 아닙니다.
 
@@ -71,3 +73,9 @@ Redis Insight HTTP 관리 UI, Locust 부하·카오스 도구, 별도 백업 cro
 동일 Orchestra 저장소에서 개발용·배포용 동시 기동은 `results/.startup-lock`으로 차단합니다. 다른 clone이나 수동 Compose는 이 lock을 공유하지 않습니다. 정상 종료·일반 예외·Ctrl+C에서는 lock을 제거합니다. SIGKILL 또는 호스트 종료 후 남은 lock은 파일에 적힌 PID와 실제 실행 여부를 확인한 뒤 삭제하십시오. 다른 실행자가 동작 중인 lock을 삭제하면 안 됩니다.
 
 검색 worker의 최초 빌드는 고정 revision 다국어 E5 모델을 다운로드합니다. 기본 CPU 2개·메모리 2 GiB 제한이며 문서 수에 따라 최초 동기화 시간이 길어질 수 있습니다. `--wait-timeout`을 조정하세요. 기존 Spring TLS volume을 재사용하므로 추가 인증서를 자동 생성하지 않습니다. `--no-build`는 `project-agora-search:local`과 `project-agora-elasticsearch:8.19.22-nori` 이미지도 필요합니다. [검색 운영 안내](../../project-agora-DB/elasticsearch/SEARCH.md)를 참고하세요.
+
+## 호스트 프록시를 거치는 개발 환경
+
+공개 443 포트의 호스트 Nginx가 Wall의 loopback HTTPS 포트(현재 서버는 8444)로 중계한다면, 일반 `/` 경로도 HTTP/1.1 및 WebSocket `Upgrade`·`Connection` 헤더를 전달해야 Vite HMR이 연결됩니다. 캔버스 전용 `/wss/` 경로만 WebSocket을 허용하면 화면은 열려도 자동 갱신은 작동하지 않습니다. 호스트는 `X-Real-IP`를 실제 접속자 IP로 설정하고 Wall의 `NGINX_TRUSTED_PROXY_IP`에는 해당 프록시의 정확한 Docker 측 IP를 지정합니다.
+
+인증서와 환경 파일이 준비된 기존 환경에서는 `./scripts/start-dev.sh` 한 번으로 개발 모드를 시작합니다. 초기화가 완료된 환경에서는 `./scripts/start-dev.sh --skip-initialize --no-build`로 기존 이미지와 데이터를 사용해 재기동할 수 있습니다. 소스 변경은 Vite bind mount로 반영되므로 FE 이미지 재빌드가 필요하지 않습니다. `./scripts/start-deploy.sh --no-build`로 기존 운영 이미지에 복귀할 수 있으며, 운영 FE에 소스 변경까지 반영하려면 기본 `./scripts/start-deploy.sh`를 실행합니다.
