@@ -5,7 +5,12 @@ import subprocess
 class Docker:
     def call(self, *args):
         result = subprocess.run(['docker', *args], capture_output=True, text=True, timeout=45)
-        if result.returncode: raise RuntimeError('Docker command failed: ' + args[0])
+        if result.returncode:
+            # Network errors describe endpoints, not inspect output or environment values.
+            # Keep other operations generic: their stderr may contain command secrets.
+            operation = ' '.join(args[:2]) if args[0] == 'network' else args[0]
+            detail = result.stderr.strip()[:1000] if args[0] == 'network' else ''
+            raise RuntimeError('Docker command failed: ' + operation + (': ' + detail if detail else ''))
         return result.stdout
 
     def resource_stats(self, identifiers):
@@ -56,8 +61,13 @@ class Docker:
         elif kind == 'disconnect' and network not in current['networks']:
             endpoint = state['networks'][network]
             args = ['network', 'connect']
-            if endpoint.get('IPAddress'): args += ['--ip', endpoint['IPAddress']]
-            if endpoint.get('GlobalIPv6Address'): args += ['--ip6', endpoint['GlobalIPv6Address']]
+            # IPAddress/GlobalIPv6Address are observed allocations, not necessarily
+            # user-configured addresses. Replaying them as --ip/--ip6 turns dynamic
+            # IPAM into static IPAM, which older Engines reject on automatic subnets.
+            ipam = endpoint.get('IPAMConfig') or {}
+            if ipam.get('IPv4Address'): args += ['--ip', ipam['IPv4Address']]
+            if ipam.get('IPv6Address'): args += ['--ip6', ipam['IPv6Address']]
+            for address in ipam.get('LinkLocalIPs') or []: args += ['--link-local-ip', address]
             for alias in endpoint.get('Aliases') or []: args += ['--alias', alias]
             # Restore driver options where explicitly configured.
             for key, value in (endpoint.get('DriverOpts') or {}).items(): args += ['--driver-opt', key + '=' + value]

@@ -1,0 +1,38 @@
+{
+  "run": "orchestra-chaos-flow-9bd0b409ef",
+  "subnet": "172.29.200.0/24",
+  "rate": 4,
+  "stage_deadline_ms": 2000,
+  "baseline_s": 5,
+  "fault_s": 5,
+  "recovery_s": 15,
+  "rounds": 3,
+  "targets": [
+    "gateway",
+    "spring",
+    "broker",
+    "cpp",
+    "storage",
+    "sql",
+    "es",
+    "redis-primary"
+  ],
+  "images": {
+    "sql": "sha256:4402d880dd4c34bfa7d8705e56a86cd6c88da80a1f6bbbe741f999e76264a090",
+    "es": "sha256:d7427921515800d3da0526806dd5ad10b9d547006f39220162ba0b9ac6ff0946",
+    "redis-primary": "sha256:a323342084bc0350cc66feb7f6e11282c8d853b5e7e729de3b0e81ed88381196",
+    "redis-replica-1": "sha256:a323342084bc0350cc66feb7f6e11282c8d853b5e7e729de3b0e81ed88381196",
+    "redis-replica-2": "sha256:a323342084bc0350cc66feb7f6e11282c8d853b5e7e729de3b0e81ed88381196",
+    "redis-sentinel-1": "sha256:a323342084bc0350cc66feb7f6e11282c8d853b5e7e729de3b0e81ed88381196",
+    "redis-sentinel-2": "sha256:a323342084bc0350cc66feb7f6e11282c8d853b5e7e729de3b0e81ed88381196",
+    "redis-sentinel-3": "sha256:a323342084bc0350cc66feb7f6e11282c8d853b5e7e729de3b0e81ed88381196",
+    "storage": "sha256:5d97434a423c2533cfeb42874d45cf6d69a840b60334582dfbfd5008e94c80be",
+    "worker": "sha256:20c6cdc3ab87ce588c5fd886f0cd5d0f5e6c4c80b3fb626ad4a25d63f8f35bef",
+    "spring": "sha256:6dccf539ef6c1e25144c4fdedb7b70da2375e61f99a8bd2b4e59d43ae885354a",
+    "cpp": "sha256:9084fe71ed27fbf3ece8938ccd6d518085f0f4f3e1c46bf021f8145fc3fead1d",
+    "broker": "sha256:8ad731ce25c2eba8bc46a1cf64989111fe3d5ffb944d0945f2839b59e068bedc",
+    "gateway": "sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94"
+  },
+  "isolated": true,
+  "published_ports": false
+}

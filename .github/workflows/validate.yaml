@@ -17,7 +17,8 @@ jobs:
           bash -n scripts/start-dev.sh
           bash -n scripts/start-deploy.sh
           sh -n scripts/container-entrypoint.sh
-      - run: python tests/docker_lab.py
+      - name: Docker fault injection and recovery (dynamic and static IPAM)
+        run: python -u tests/docker_lab.py
   container-smoke:
     runs-on: ubuntu-latest
     steps:

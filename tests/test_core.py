@@ -158,10 +158,45 @@ class ProtocolTests(unittest.TestCase):
             rows = Docker().resource_stats(['available', 'missing'])
         self.assertEqual(rows['available']['CPUPerc'], '1%')
         self.assertNotIn('missing', rows)
+    def test_network_restore_keeps_dynamic_addresses_dynamic(self):
+        for ipam in (None, {}):
+            with self.subTest(ipam=ipam):
+                docker = Docker(); docker.inspect = lambda _: {'networks': {}, 'state': {}}
+                calls = []; docker.call = lambda *args: calls.append(args)
+                state = FakeDocker().state
+                state['networks']['lab-net'].update(IPAMConfig=ipam, GlobalIPv6Address='fd00::5')
+                docker.restore(state, 'disconnect', 'lab-net')
+                self.assertEqual(calls, [('network', 'connect', '--alias', 'fixture', 'lab-net', 'original')])
+
+    def test_network_restore_preserves_static_dual_stack_options_and_is_idempotent(self):
+        docker = Docker(); docker.inspect = lambda _: {'networks': {}, 'state': {}}
+        calls = []; docker.call = lambda *args: calls.append(args)
+        state = FakeDocker().state
+        state['networks']['lab-net'].update(
+            IPAMConfig={'IPv4Address': '172.30.0.8', 'IPv6Address': 'fd00::8', 'LinkLocalIPs': ['169.254.1.8']},
+            GlobalIPv6Address='fd00::5', DriverOpts={'custom': 'value'})
+        docker.restore(state, 'disconnect', 'lab-net')
+        self.assertEqual(calls, [('network', 'connect', '--ip', '172.30.0.8', '--ip6', 'fd00::8',
+                                 '--link-local-ip', '169.254.1.8', '--alias', 'fixture',
+                                 '--driver-opt', 'custom=value', 'lab-net', 'original')])
+        docker.inspect = lambda _: state
+        docker.restore(state, 'disconnect', 'lab-net')
+        self.assertEqual(len(calls), 1)
+
+    def test_network_command_errors_include_daemon_reason_without_exposing_inspect_secrets(self):
+        message = 'user specified IP address is supported only when connecting to networks with user configured subnets'
+        with patch('orchestra.docker.subprocess.run', return_value=subprocess.CompletedProcess([], 1, '', message)):
+            with self.assertRaisesRegex(RuntimeError, 'network connect: ' + message):
+                Docker().call('network', 'connect', '--ip', '172.30.0.5', 'lab-net', 'fixture')
+        with patch('orchestra.docker.subprocess.run', return_value=subprocess.CompletedProcess([], 1, '', 'SECRET_VALUE')):
+            with self.assertRaisesRegex(RuntimeError, '^Docker command failed: inspect$'):
+                Docker().call('inspect', 'fixture')
+
     def test_network_restore_preserves_identity(self):
         docker = Docker(); docker.inspect = lambda _: {'networks': {}, 'state': {}}
         calls = []; docker.call = lambda *args: calls.append(args)
         state = FakeDocker().state
+        state['networks']['lab-net']['IPAMConfig'] = {'IPv4Address': '172.30.0.5'}
         docker.restore(state, 'disconnect', 'lab-net')
         self.assertEqual(calls[0], ('network', 'connect', '--ip', '172.30.0.5', '--alias', 'fixture', 'lab-net', 'original'))
         docker.restore(state, 'cpu')

@@ -2,13 +2,16 @@
 
 ## 도구와 범위
 
+[사용자 흐름 실측 보고서](CHAOS_USERFLOW_AVAILABILITY.md)는 실제 앱의 로그인·검색·접속·저장을
+24회 격리 장애 실험에서 측정한 시점별 성공률과 평균을 제공합니다.
+
 Orchestra의 `monkey`는 명시한 Docker 컨테이너 목록에서 난수 seed로 하나씩 선택하는 자체 도구입니다. [Netflix Chaos Monkey](https://github.com/Netflix/chaosmonkey)는 Spinnaker 배포를 전제로 하므로, 현재 Docker 구성에 별도의 Spinnaker를 요구하는 대신 제한된 장애·복구 도구를 제공합니다.
 
 | 장애 | 주입 | 복구 | 확인할 내용 |
 |---|---|---|---|
 | pause | 프로세스 실행 일시정지 | unpause | 타임아웃, 큐·메모리 제한, 재연결 |
 | stop | 정상 종료 시도 후 제한 시간에 중지 | 동일 컨테이너 start | 재시작·복구 시간, 저장 상태 |
-| disconnect | 지정 네트워크 연결 제거 | 기존 IP·별칭을 보존해 재연결 | DNS·연결 재수립, 직접 우회 금지 |
+| disconnect | 지정 네트워크 연결 제거 | 설정한 고정 IP·별칭을 보존하고 동적 IP는 IPAM으로 재할당 | DNS·연결 재수립, 직접 우회 금지 |
 | cpu | CPU quota 감소 | 이전 quota 복원 | p95 지연, 백프레셔, 정상화 |
 
 `stop`은 전원 손실이나 `SIGKILL`과 같은 장애가 아닙니다. 디스크 손상, 볼륨 삭제, 패킷 지연·손실, 대규모 동시 종료도 이 도구의 범위가 아닙니다. 이들을 검증한 것으로 해석하면 안 됩니다.
@@ -65,11 +68,11 @@ Orchestra의 `monkey`는 명시한 Docker 컨테이너 목록에서 난수 seed�
 | 현재 Redis primary | pause 30초부터 측정 | Sentinel의 실제 장애 판정 시간에 맞춰 선출 관측; 새 primary TLS 경로·ROLE 확인; 복구한 이전 primary의 역할 확인 |
 | Redis replica 1/2 | stop 10초 | primary 읽기 유지 여부; 복귀 후 복제 정상·지연 정상화 |
 | Sentinel 1/2/3 | 한 개 pause 15초 | 나머지 quorum·primary 탐색 정상; 복귀 후 3개 탐색 결과 수렴 |
-| 브라우저 호스트 | 다중 브라우저에서 호스트 탭 종료 | 새 호스트 선출 동안 큐 유지, 카운트 감소 없음, 중복 적용 없음, 송신자 ACK, 신규 접속 최신 상태 |
+| 편집 브라우저 | 첫 편집자 탭 종료 | 호스트 선출 없이 편집 지속, 접수된 저장 처리, 중복 적용 없음, 신규 접속 최신 상태 |
 
 Redis primary는 이름이 `redis-primary`인 컨테이너와 항상 같지 않습니다. 선출 후 Sentinel이 알려준 실제 슬롯과 `ROLE`을 확인한 뒤 해당 노드를 대상으로 지정하십시오. quorum 손실 시험은 단일 노드 기준선과 데이터 검증이 끝난 뒤 별도 계획으로 수행해야 하며 기본 monkey는 동시 다중 장애를 만들지 않습니다.
 
-데이터 검증은 전용 캔버스에서 수동으로 고유 ID의 변경을 기록하고 ACK 단계별로 관측합니다. 초기 상태, 호스트 ACK, C++ 저장 성공, 새 브라우저의 재조회, 재시작 후 재조회 결과를 비교하십시오. 기본 Locust는 읽기만 수행하므로 쓰기 유실·중복·CRDT 충돌을 자동 판정하지 않습니다. 프레임·메시지 손실, 브라우저 P2P 선출 및 음성 품질도 별도 브라우저 실험이 필요합니다.
+데이터 검증은 전용 캔버스에서 수동으로 고유 ID의 변경을 기록하고 ACK 단계별로 관측합니다. 초기 상태, C++ 저장 성공 ACK, 확정 변경, 새 브라우저의 재조회, 재시작 후 재조회 결과를 비교하십시오. 기본 Locust는 읽기만 수행하므로 쓰기 유실·중복·CRDT 충돌을 자동 판정하지 않습니다. 프레임·메시지 손실, 브라우저의 접속 복구 및 P2P 음성 품질도 별도 브라우저 실험이 필요합니다.
 
 ## 격리된 자체 검증
 
@@ -78,3 +81,20 @@ Redis primary는 이름이 `redis-primary`인 컨테이너와 항상 같지 않�
 ```
 
 이 스크립트는 고유 이름의 임시 네트워크와 테스트 컨테이너만 생성하여 pause, stop, disconnect, CPU 제한을 실제로 주입하고 복원 상태를 검사한 뒤 제거합니다. 기존 Agora 컨테이너에 장애를 주입하지 않습니다. SIGKILL·프로세스 외부 장애의 자동 복구까지 보장하는 시험은 아닙니다.
+
+
+### 네트워크 복구와 Docker 버전 호환성
+
+네트워크 복구는 컨테이너 endpoint의 `IPAMConfig`를 기준으로 `--ip`/`--ip6`를 복원합니다.
+`IPAddress`/`GlobalIPv6Address`는 현재 관측된 주소이므로 고정 IP 설정으로 취급하지 않습니다.
+동적 IP는 Docker IPAM이 다시 할당하며, 같은 주소가 유지된다고 보장하지 않습니다.
+별칭, 명시한 IPv4/IPv6·link-local 주소와 driver options는 복원합니다.
+
+자동 서브넷의 동적 IP를 `--ip`로 재전달하면 일부 Docker Engine 버전은
+`user specified IP address is supported only when connecting to networks with user configured subnets`
+오류로 거부합니다. 네트워크 명령 실패는 이제 `network connect` 같은 하위 명령과
+daemon 오류를 출력하며, 환경변수를 포함할 수 있는 다른 명령은 기존처럼 오류 상세를 숨깁니다.
+
+`tests/docker_lab.py`는 Engine 버전을 기록하고 자동 서브넷·동적 IP 및 명시적 서브넷·고정 IP
+두 환경에서 pause/stop/disconnect/cpu를 각각 검증합니다. 고정 IP·별칭 유지뿐 아니라
+동적 IP가 복구 후 고정 IP로 바뀌지 않는지와 복구 재시도의 멱등성도 확인합니다.
