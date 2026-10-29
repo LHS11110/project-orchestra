@@ -52,7 +52,7 @@ def repositories(workspace):
             [('fe', 'FE'), ('be', 'BE'), ('db', 'DB'), ('wall', 'Wall')]}
 
 
-def create_plan(repos, mode, wait=300, build=True, initialize=False, sql_ca=False):
+def create_plan(repos, mode, wait=300, build=True, initialize=False, sql_ca=False, runtime=False):
     db, wall, be, fe = (repos[key] for key in ('db', 'wall', 'be', 'fe'))
     steps = [Step('Prepare Elasticsearch storage permissions', db,
                   ('bash', str(db / 'elasticsearch/prepare-storage.sh')))]
@@ -76,10 +76,13 @@ def create_plan(repos, mode, wait=300, build=True, initialize=False, sql_ca=Fals
     steps.append(Step('Refresh backend and frontend TLS volumes', be, compose(be, 'docker-compose.backend.yml',
         'run', '--rm', '--no-deps', 'service-tls-init', project='agora-backend',
         extra=('docker-compose.sql-ca.yml',) if sql_ca else ())))
+    if runtime:
+        steps.append(Step('Verify offline runtime manager', be, ('systemctl', 'is-active', '--quiet', 'agora-runtime-manager.service')))
     for service in ('spring', 'cpp'):
+        overrides = (('docker-compose.sql-ca.yml',) if sql_ca else ()) + (('docker-compose.runtime.yml',) if runtime and service == 'spring' else ())
         steps.append(Step('Start and wait: ' + service, be, compose(be, 'docker-compose.backend.yml',
             'up', '-d', '--no-build', '--no-deps', '--force-recreate', '--wait', '--wait-timeout', str(wait), service,
-            project='agora-backend', extra=('docker-compose.sql-ca.yml',) if sql_ca else ())))
+            project='agora-backend', extra=overrides)))
     steps.append(Step('Start and wait: E5 search projection', be, compose(be, 'docker-compose.search.yml',
         'up', '-d', '--wait', '--wait-timeout', str(wait), '--build' if build else '--no-build', 'search-embedding')))
     steps.append(Step('Verify backend HTTPS and log account', be,
@@ -203,6 +206,7 @@ def main(argv=None):
     parser.add_argument('--no-build', action='store_true', help='Require existing backend, broker and FE images')
     parser.add_argument('--initialize', action='store_true', help='Apply DB schema/account/index initialization (production opt-in)')
     parser.add_argument('--skip-initialize', action='store_true', help='Skip default development initialization')
+    parser.add_argument('--runtime', action='store_true', help='Connect the preinstalled offline canvas runtime manager')
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--plan', action='store_true', help='Print order; no Docker/config/file mutations')
     group.add_argument('--check', action='store_true', help='Validate inputs without starting services')
@@ -220,7 +224,7 @@ def main(argv=None):
             if (repos['be'] / '.env').is_file():
                 ca = bool(read_settings(repos['be'] / '.env').get('CPP_SQL_CA_CERT_HOST_PATH'))
             if args.tls_dir: print('0. Configure repositories using supplied certificates; no certificates generated')
-            for index, step in enumerate(create_plan(repos, args.mode, args.wait_timeout, not args.no_build, initialize, ca), 1):
+            for index, step in enumerate(create_plan(repos, args.mode, args.wait_timeout, not args.no_build, initialize, ca, args.runtime), 1):
                 print(f'{index}. {step.name}')
                 if step.command: print('   ' + shlex.join(step.command))
             return 0
@@ -236,10 +240,14 @@ def main(argv=None):
                     '--wall-dir', str(repos['wall']), '--db-dir', str(repos['db']), '--tls-dir', str(args.tls_dir.expanduser().resolve()),
                     '--public-origin', args.public_origin), repos['fe'])
             stage = 'preflight'; runner.preflight()
+            if args.runtime:
+                runner.call(('systemctl', 'is-active', '--quiet', 'agora-runtime-manager.service'), repos['be'])
+                if not (repos['be'] / 'docker-compose.runtime.yml').is_file():
+                    raise ValueError('Runtime compose override is missing')
             if args.check:
                 print('Startup inputs validated; no services started.'); return 0
             sql_ca = bool(read_settings(repos['be'] / '.env').get('CPP_SQL_CA_CERT_HOST_PATH'))
-            steps = create_plan(repos, args.mode, args.wait_timeout, not args.no_build, initialize, sql_ca)
+            steps = create_plan(repos, args.mode, args.wait_timeout, not args.no_build, initialize, sql_ca, args.runtime)
             for index, step in enumerate(steps, 1):
                 stage = step.name; print(f'[{index}/{len(steps)}] {stage}', flush=True); runner.execute(step)
             print('Agora startup complete: ' + args.mode)

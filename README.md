@@ -37,6 +37,8 @@ workspace/
 
 Python 3.11 이상과 Docker CLI/Compose가 필요합니다. Locust의 SQL 프로필은 Microsoft ODBC Driver 18을 필요로 하므로 제공된 Docker 이미지 사용을 권장합니다. 호스트에서 카오스 명령을 실행하며, 부하 테스트 컨테이너에는 Docker 소켓을 제공하지 않습니다.
 
+외부 HTTPS 인증서는 [Let's Encrypt·Certbot 운영 안내](docs/PUBLIC_TLS.md)의 자동 갱신 경로로 관리합니다. 내부 서비스 TLS는 별도의 내부 CA를 사용합니다.
+
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install -e .
