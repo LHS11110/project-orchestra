@@ -77,7 +77,8 @@ def create_plan(repos, mode, wait=300, build=True, initialize=False, sql_ca=Fals
         'run', '--rm', '--no-deps', 'service-tls-init', project='agora-backend',
         extra=('docker-compose.sql-ca.yml',) if sql_ca else ())))
     if runtime:
-        steps.append(Step('Verify offline runtime manager', be, ('systemctl', 'is-active', '--quiet', 'agora-runtime-manager.service')))
+        steps.append(Step('Verify canvas runtime egress', be, ('systemctl', 'is-active', '--quiet', 'agora-runtime-egress.service')))
+        steps.append(Step('Verify canvas runtime manager', be, ('systemctl', 'is-active', '--quiet', 'agora-runtime-manager.service')))
     for service in ('spring', 'cpp'):
         overrides = (('docker-compose.sql-ca.yml',) if sql_ca else ()) + (('docker-compose.runtime.yml',) if runtime and service == 'spring' else ())
         steps.append(Step('Start and wait: ' + service, be, compose(be, 'docker-compose.backend.yml',
@@ -206,7 +207,7 @@ def main(argv=None):
     parser.add_argument('--no-build', action='store_true', help='Require existing backend, broker and FE images')
     parser.add_argument('--initialize', action='store_true', help='Apply DB schema/account/index initialization (production opt-in)')
     parser.add_argument('--skip-initialize', action='store_true', help='Skip default development initialization')
-    parser.add_argument('--runtime', action='store_true', help='Connect the preinstalled offline canvas runtime manager')
+    parser.add_argument('--runtime', action='store_true', help='Connect the preinstalled canvas runtime manager and outbound NAT')
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--plan', action='store_true', help='Print order; no Docker/config/file mutations')
     group.add_argument('--check', action='store_true', help='Validate inputs without starting services')
@@ -241,6 +242,7 @@ def main(argv=None):
                     '--public-origin', args.public_origin), repos['fe'])
             stage = 'preflight'; runner.preflight()
             if args.runtime:
+                runner.call(('systemctl', 'is-active', '--quiet', 'agora-runtime-egress.service'), repos['be'])
                 runner.call(('systemctl', 'is-active', '--quiet', 'agora-runtime-manager.service'), repos['be'])
                 if not (repos['be'] / 'docker-compose.runtime.yml').is_file():
                     raise ValueError('Runtime compose override is missing')

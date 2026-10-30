@@ -86,3 +86,8 @@ docker build -t project-orchestra:local .
 ```
 
 Apache 2.0 라이선스입니다. 이 저장소의 `monkey`는 Docker 환경용 자체 장애 도구이며 Netflix Chaos Monkey를 설치하거나 실행하는 기능은 아닙니다.
+
+캔버스 코드 실행 환경을 연결하려면 `--runtime`을 사용합니다. `hypervisor-for-agora`의
+`runtime/install`로 관리자와 NAT 네트워크 서비스를 먼저 설치해야 합니다. 시작 시
+두 서비스의 상태를 확인하고 Spring에만 관리자 소켓을 연결합니다. VM에서 시작한
+공용 IPv4 통신은 NAT로 허용하며 외부 신규 연결·호스트·사설망 접근은 차단합니다.

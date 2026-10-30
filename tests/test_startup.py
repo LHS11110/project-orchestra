@@ -31,7 +31,8 @@ class StartupTests(unittest.TestCase):
                 self.assertTrue(any(arg.endswith('docker-compose.sql-ca.yml') for arg in step.command))
     def test_runtime_is_opt_in_and_attached_only_to_spring(self):
         plan = create_plan(self.repos, 'development', runtime=True, sql_ca=True)
-        self.assertIn('Verify offline runtime manager', [step.name for step in plan])
+        self.assertIn('Verify canvas runtime manager', [step.name for step in plan])
+        self.assertIn('Verify canvas runtime egress', [step.name for step in plan])
         spring = next(step for step in plan if step.name == 'Start and wait: spring')
         cpp = next(step for step in plan if step.name == 'Start and wait: cpp')
         self.assertTrue(any(arg.endswith('docker-compose.runtime.yml') for arg in spring.command))
