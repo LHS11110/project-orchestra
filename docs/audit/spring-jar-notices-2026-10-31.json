@@ -1,0 +1,630 @@
+[
+  {
+    "component": "tomcat-embed-jasper-11.0.24.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "jakarta.servlet.jsp.jstl-api-3.0.2.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "jakarta.servlet.jsp.jstl-3.0.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "jjwt-impl-0.12.6.jar",
+    "notice_files": []
+  },
+  {
+    "component": "jjwt-jackson-0.12.6.jar",
+    "notice_files": []
+  },
+  {
+    "component": "jjwt-api-0.12.6.jar",
+    "notice_files": []
+  },
+  {
+    "component": "jackson-core-2.21.5.jar",
+    "notice_files": [
+      "META-INF/FastDoubleParser-LICENSE",
+      "META-INF/FastDoubleParser-ThirdParty-LICENSE",
+      "META-INF/LICENSE",
+      "META-INF/Schubfach-LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "jackson-databind-2.18.2.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "mssql-jdbc-13.4.0.jre11.jar",
+    "notice_files": []
+  },
+  {
+    "component": "h2-2.4.240.jar",
+    "notice_files": []
+  },
+  {
+    "component": "spring-boot-webmvc-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-http-converter-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-servlet-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-webmvc-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-security-oauth2-client-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-security-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-security-oauth2-client-7.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "spring-security-web-7.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "spring-security-oauth2-jose-7.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "spring-security-oauth2-core-7.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-tomcat-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-web-server-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-web-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-security-config-7.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "spring-security-core-7.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-autoconfigure-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-data-jpa-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-hibernate-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-jpa-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-jdbc-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-validation-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-jackson-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-data-commons-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-sql-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-transaction-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-persistence-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-boot-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "spring-data-jpa-4.1.1.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-context-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "micrometer-observation-1.17.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "tomcat-embed-el-11.0.24.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "hibernate-core-7.4.5.Final.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "byte-buddy-1.18.11.jar",
+    "notice_files": [
+      "META-INF/NOTICE",
+      "net/bytebuddy/asm/Advice$ArgumentHandler$ForInstrumentedMethod$Default$Copying.class",
+      "META-INF/LICENSE"
+    ]
+  },
+  {
+    "component": "jaxb-runtime-4.0.9.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "jaxb-core-4.0.9.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "jakarta.xml.bind-api-4.0.5.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "angus-activation-2.0.3.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "jakarta.activation-api-2.1.4.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "spring-security-crypto-7.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "spring-orm-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-jdbc-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-tx-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-aop-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-data-commons-4.1.1.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-beans-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-expression-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "spring-core-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "jackson-core-3.1.5.jar",
+    "notice_files": [
+      "META-INF/FastDoubleParser-LICENSE",
+      "META-INF/FastDoubleParser-ThirdParty-LICENSE",
+      "META-INF/LICENSE",
+      "META-INF/Schubfach-LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "jackson-databind-3.1.5.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "jackson-annotations-2.21.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "istack-commons-runtime-4.1.2.jar",
+    "notice_files": []
+  },
+  {
+    "component": "jakarta.transaction-api-2.0.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "oauth2-oidc-sdk-11.38.2.jar",
+    "notice_files": []
+  },
+  {
+    "component": "json-smart-2.6.0.jar",
+    "notice_files": []
+  },
+  {
+    "component": "accessors-smart-2.6.0.jar",
+    "notice_files": []
+  },
+  {
+    "component": "snakeyaml-2.6.jar",
+    "notice_files": []
+  },
+  {
+    "component": "lang-tag-1.7.jar",
+    "notice_files": []
+  },
+  {
+    "component": "jakarta.servlet-api-6.1.0.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "logback-classic-1.5.38.jar",
+    "notice_files": []
+  },
+  {
+    "component": "logback-core-1.5.38.jar",
+    "notice_files": []
+  },
+  {
+    "component": "spring-aspects-7.0.9.jar",
+    "notice_files": [
+      "META-INF/license.txt",
+      "META-INF/notice.txt"
+    ]
+  },
+  {
+    "component": "aspectjweaver-1.9.25.1.jar",
+    "notice_files": [
+      "LICENSE-AspectJ.adoc",
+      "licenses/LICENSE-BSD-3-CLAUSE.txt",
+      "licenses/LICENSE-EPL-2.0.txt",
+      "licenses/LICENSE-Apache-1.1.txt"
+    ]
+  },
+  {
+    "component": "jakarta.inject-api-2.0.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "nimbus-jose-jwt-10.9.1.jar",
+    "notice_files": []
+  },
+  {
+    "component": "HikariCP-7.0.2.jar",
+    "notice_files": []
+  },
+  {
+    "component": "content-type-2.3.jar",
+    "notice_files": []
+  },
+  {
+    "component": "micrometer-commons-1.17.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "jspecify-1.0.1.jar",
+    "notice_files": []
+  },
+  {
+    "component": "jakarta.el-api-5.0.0.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "antlr4-runtime-4.13.2.jar",
+    "notice_files": []
+  },
+  {
+    "component": "txw2-4.0.9.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "tomcat-embed-websocket-11.0.24.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "tomcat-embed-core-11.0.24.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "tomcat-annotations-api-11.0.24.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "jakarta.persistence-api-3.2.0.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "asm-9.7.1.jar",
+    "notice_files": []
+  },
+  {
+    "component": "commons-logging-1.3.6.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  },
+  {
+    "component": "log4j-to-slf4j-2.25.5.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "log4j-api-2.25.5.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "hibernate-validator-9.1.3.Final.jar",
+    "notice_files": [
+      "META-INF/license.txt"
+    ]
+  },
+  {
+    "component": "classmate-1.7.3.jar",
+    "notice_files": [
+      "META-INF/LICENSE",
+      "META-INF/NOTICE"
+    ]
+  },
+  {
+    "component": "jakarta.annotation-api-3.0.0.jar",
+    "notice_files": [
+      "META-INF/LICENSE.md",
+      "META-INF/NOTICE.md"
+    ]
+  },
+  {
+    "component": "hibernate-models-1.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE"
+    ]
+  },
+  {
+    "component": "jul-to-slf4j-2.0.18.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "slf4j-api-2.0.18.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt"
+    ]
+  },
+  {
+    "component": "jboss-logging-3.6.3.Final.jar",
+    "notice_files": []
+  },
+  {
+    "component": "ecj-3.45.0.jar",
+    "notice_files": []
+  },
+  {
+    "component": "jakarta.validation-api-3.1.1.jar",
+    "notice_files": []
+  },
+  {
+    "component": "jcip-annotations-1.0-1.jar",
+    "notice_files": []
+  },
+  {
+    "component": "spring-boot-jarmode-tools-4.1.1.jar",
+    "notice_files": [
+      "META-INF/LICENSE.txt",
+      "META-INF/NOTICE.txt"
+    ]
+  }
+]

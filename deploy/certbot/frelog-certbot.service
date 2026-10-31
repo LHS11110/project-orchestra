@@ -1,0 +1,9 @@
+[Unit]
+Description=Renew Frelog public domain certificate
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/snap/bin/certbot -q renew --cert-name frelog.p-e.kr --no-random-sleep-on-renew
+PrivateTmp=true

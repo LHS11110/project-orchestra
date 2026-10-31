@@ -1,8 +1,38 @@
 # 외부 HTTPS 인증서: Let's Encrypt + Certbot
 
-현재 외부 진입점 `https://118.34.144.201`은 호스트 Nginx에서 Let's Encrypt 인증서를
-제공합니다. 자체 서명 인증서가 아닙니다. 인증서·키는 `/etc/letsencrypt/live/118.34.144.201/`에
+현재 외부 진입점 `https://frelog.p-e.kr`은 호스트 Nginx에서 Let's Encrypt 인증서를
+제공합니다. 자체 서명 인증서가 아닙니다. 인증서·키는 `/etc/letsencrypt/live/frelog.p-e.kr/`에
 두고 저장소에 넣지 않습니다. 호스트 Nginx는 Docker 게이트웨이 `127.0.0.1:8444`로 전달합니다.
+
+## 80번 포트 폐쇄 (2026-10-31)
+
+사용자 요청으로 호스트 Nginx의 모든 80번 server 블록과 UFW의 IPv4·IPv6 80 허용 규칙을 제거했습니다. HTTP→HTTPS 리디렉션과 HTTP-01 검증 경로도 제공하지 않습니다. 접속 시 `https://frelog.p-e.kr`을 사용합니다. 443번 HTTPS는 유지하며 기존 인증서는 유효합니다.
+
+**갱신 전환 대기:** 아래 기존 발급·갱신 이력은 HTTP-01을 사용하던 당시 기록입니다. 현재 80번이 닫혀 있으므로 기존 webroot 자동 갱신은 검증에 성공할 수 없습니다. DNS 제공자의 TXT/API 접근 정보를 받은 뒤 DNS-01 등의 검증 방식으로 전환해야 합니다. 도메인 인증서는 2027-01-29 만료이고 기존 IP 인증서는 그보다 먼저 만료됩니다. 자동 갱신이 계속 동작한다고 간주하지 마세요.
+
+## 도메인 적용 (2026-10-31)
+
+`frelog.p-e.kr`의 A 레코드는 `118.34.144.201`입니다. 도메인 인증서는
+2027-01-29까지 유효하며 Certbot webroot 방식으로 갱신합니다.
+`deploy/nginx/frelog.conf`를 `/etc/nginx/sites-available/frelog.conf`에 설치하고
+`sites-enabled`에 연결합니다. 기존 IP 진입점도 유지합니다.
+
+```sh
+/snap/bin/certbot certonly --webroot -w /var/www/letsencrypt -d frelog.p-e.kr --cert-name frelog.p-e.kr
+sudo install -m 0644 deploy/certbot/frelog-certbot.service /etc/systemd/system/
+sudo install -m 0644 deploy/certbot/frelog-certbot.timer /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now frelog-certbot.timer
+sudo sh scripts/public-tls.sh verify-renewal frelog.p-e.kr
+```
+
+`frelog-certbot.timer`는 하루 두 번 갱신을 확인하고 기존 갱신 후 훅으로 Nginx를
+검증·reload합니다. 기존 `certbot.timer`의 IP 인증서 관리와 분리하여 한쪽 실패가
+다른 쪽 갱신을 막지 않도록 합니다. 갱신 결과는 `journalctl -u frelog-certbot.service`로 확인합니다.
+도메인의 운영 TLS 신뢰 검증, HTTP→HTTPS 리디렉션, 인증된 API와 실제 브라우저의 캔버스 WSS 연결을 확인했습니다. `verify-renewal` 모의 갱신과 Nginx deploy hook도 성공했습니다.
+
+Spring CORS와 Phoenix 브로커 origin 허용 목록에 `https://frelog.p-e.kr`을 추가하고
+Project Orchestra로 두 서비스를 재생성했습니다. FE API와 WebSocket은 동일 origin을 사용합니다.
 
 ## 공인 IP 변경 반영 (2026-10-29)
 
@@ -19,7 +49,7 @@ Spring의 `CORS_ALLOWED_ORIGINS`, Phoenix의 `BROKER_ALLOWED_ORIGINS`와 FE 개�
 
 ## 발급과 갱신
 
-- 클라이언트: Snap Certbot 5.8.0, 실행 경로 `/snap/bin/certbot`.
+- 클라이언트: Snap Certbot 5.9.0, 실행 경로 `/snap/bin/certbot`.
 - 인증: `webroot`, `/var/www/letsencrypt`.
 - 검증 경로: HTTP 80번의 `/.well-known/acme-challenge/`. 나머지 HTTP 요청은 HTTPS로 리디렉션합니다.
 - IP 인증서 프로필: `shortlived`, 약 6일 유효.

@@ -12,7 +12,7 @@ RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.l
  && groupadd --gid 10001 orchestra && useradd --uid 10001 --gid 10001 --create-home orchestra
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-COPY pyproject.toml locustfile.py ./
+COPY pyproject.toml locustfile.py LICENSE NOTICE THIRD_PARTY_NOTICES.md ./
 COPY orchestra ./orchestra
 COPY scripts/container-entrypoint.sh /usr/local/bin/orchestra-entrypoint
 RUN pip install --no-cache-dir --no-deps . && chmod 755 /usr/local/bin/orchestra-entrypoint
