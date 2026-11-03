@@ -1,0 +1,1798 @@
+{
+  "count": 120,
+  "missing": [
+    "jjwt-impl-0.12.6.jar",
+    "jjwt-jackson-0.12.6.jar",
+    "jjwt-api-0.12.6.jar",
+    "mssql-jdbc-13.4.0.jre11.jar",
+    "h2-2.4.240.jar",
+    "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+    "cbor-4.5.6.jar",
+    "datautilities-1.1.0.jar",
+    "istack-commons-runtime-4.1.2.jar",
+    "oauth2-oidc-sdk-11.38.2.jar",
+    "json-smart-2.6.0.jar",
+    "accessors-smart-2.6.0.jar",
+    "snakeyaml-2.6.jar",
+    "lang-tag-1.7.jar",
+    "logback-classic-1.5.38.jar",
+    "logback-core-1.5.38.jar",
+    "j2objc-annotations-3.1.jar",
+    "nimbus-jose-jwt-10.9.1.jar",
+    "HikariCP-7.0.2.jar",
+    "content-type-2.3.jar",
+    "jspecify-1.0.1.jar",
+    "antlr4-runtime-4.13.2.jar",
+    "asm-9.7.1.jar",
+    "error_prone_annotations-2.50.0.jar",
+    "jboss-logging-3.6.3.Final.jar",
+    "ecj-3.45.0.jar",
+    "jakarta.validation-api-3.1.1.jar",
+    "jcip-annotations-1.0-1.jar",
+    "numbers-1.8.2.jar"
+  ],
+  "components": [
+    {
+      "jar": "webauthn-server-core-2.10.1.jar",
+      "notices": [
+        "COPYING"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "BSD-license",
+          "url": ""
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "tomcat-embed-jasper-11.0.24.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.servlet.jsp.jstl-api-3.0.2.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EPL 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.servlet.jsp.jstl-3.0.1.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EPL 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jjwt-impl-0.12.6.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jjwt-jackson-0.12.6.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jjwt-api-0.12.6.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "yubico-util-2.10.1.jar",
+      "notices": [
+        "COPYING"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "BSD-license",
+          "url": ""
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jackson-dataformat-cbor-2.21.5.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jackson-datatype-jdk8-2.21.5.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jackson-datatype-jsr310-2.21.5.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jackson-core-2.21.5.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jackson-databind-2.18.2.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "mssql-jdbc-13.4.0.jre11.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "MIT License",
+          "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "h2-2.4.240.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "MPL 2.0",
+          "url": "https://www.mozilla.org/en-US/MPL/2.0/"
+        },
+        {
+          "name": "EPL 1.0",
+          "url": "https://opensource.org/licenses/eclipse-1.0.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-webmvc-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-http-converter-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-servlet-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-webmvc-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-security-oauth2-client-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-security-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-security-oauth2-client-7.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-security-web-7.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-security-oauth2-jose-7.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-security-oauth2-core-7.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-tomcat-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-web-server-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-web-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-security-config-7.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-security-core-7.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-autoconfigure-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-data-jpa-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-hibernate-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-jpa-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-jdbc-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-mail-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-validation-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-jackson-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-data-commons-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-sql-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-transaction-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-persistence-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-data-jpa-4.1.1.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-context-support-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-context-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "micrometer-observation-1.17.1.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "httpclient5-5.6.4.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": [
+        "META-INF/DEPENDENCIES"
+      ]
+    },
+    {
+      "jar": "httpcore5-h2-5.4.3.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": [
+        "META-INF/DEPENDENCIES"
+      ]
+    },
+    {
+      "jar": "httpcore5-5.4.3.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": [
+        "META-INF/DEPENDENCIES"
+      ]
+    },
+    {
+      "jar": "tomcat-embed-el-11.0.24.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "guava-33.7.2-jre.jar",
+      "notices": [
+        "META-INF/LICENSE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "hibernate-core-7.4.5.Final.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "byte-buddy-1.18.11.jar",
+      "notices": [
+        "META-INF/NOTICE",
+        "META-INF/LICENSE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "angus-mail-2.0.5.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EPL 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html"
+        },
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.mail-api-2.1.5.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EPL 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html"
+        },
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jaxb-runtime-4.0.9.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jaxb-core-4.0.9.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "angus-activation-2.0.3.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.xml.bind-api-4.0.5.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.activation-api-2.1.4.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-security-crypto-7.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-orm-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-jdbc-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-tx-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-aop-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-data-commons-4.1.1.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-beans-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-expression-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-core-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jackson-core-3.1.5.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jackson-databind-3.1.5.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jackson-annotations-2.21.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "cbor-4.5.6.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Unlicense",
+          "url": "https://unlicense.org/"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "datautilities-1.1.0.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "CC0 Universal",
+          "url": "http://www.creativecommons.org/publicdomain/zero/1.0/"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "istack-commons-runtime-4.1.2.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "failureaccess-1.0.3.jar",
+      "notices": [
+        "META-INF/LICENSE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.transaction-api-2.0.1.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EPL 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "oauth2-oidc-sdk-11.38.2.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "json-smart-2.6.0.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "accessors-smart-2.6.0.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "snakeyaml-2.6.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "lang-tag-1.7.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.servlet-api-6.1.0.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EPL 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "logback-classic-1.5.38.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "EPL-2.0",
+          "url": "https://www.eclipse.org/legal/epl-v20.html"
+        },
+        {
+          "name": "LGPL-2.1-only",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "logback-core-1.5.38.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "EPL-2.0",
+          "url": "https://www.eclipse.org/legal/epl-v20.html"
+        },
+        {
+          "name": "LGPL-2.1-only",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-aspects-7.0.9.jar",
+      "notices": [
+        "META-INF/license.txt",
+        "META-INF/notice.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "aspectjweaver-1.9.25.1.jar",
+      "notices": [
+        "LICENSE-AspectJ.adoc",
+        "licenses/LICENSE-BSD-3-CLAUSE.txt",
+        "licenses/LICENSE-EPL-2.0.txt",
+        "licenses/LICENSE-Apache-1.1.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Eclipse Public License - v 2.0",
+          "url": "https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "j2objc-annotations-3.1.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.inject-api-2.0.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "nimbus-jose-jwt-10.9.1.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "HikariCP-7.0.2.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "content-type-2.3.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "micrometer-commons-1.17.1.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jspecify-1.0.1.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "The Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.el-api-5.0.0.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Eclipse Public License v. 2.0",
+          "url": "https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt"
+        },
+        {
+          "name": "GNU General Public License, version 2 with the GNU Classpath Exception",
+          "url": "https://www.gnu.org/software/classpath/license.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "antlr4-runtime-4.13.2.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "BSD-3-Clause",
+          "url": "https://www.antlr.org/license.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "txw2-4.0.9.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "tomcat-embed-websocket-11.0.24.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "tomcat-embed-core-11.0.24.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "tomcat-annotations-api-11.0.24.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.persistence-api-3.2.0.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Eclipse Public License v. 2.0",
+          "url": "http://www.eclipse.org/legal/epl-2.0"
+        },
+        {
+          "name": "Eclipse Distribution License v. 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "asm-9.7.1.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "BSD-3-Clause",
+          "url": "https://asm.ow2.io/license.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "commons-logging-1.3.6.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "log4j-to-slf4j-2.25.5.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": [
+        "META-INF/DEPENDENCIES"
+      ]
+    },
+    {
+      "jar": "log4j-api-2.25.5.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": [
+        "META-INF/DEPENDENCIES"
+      ]
+    },
+    {
+      "jar": "hibernate-validator-9.1.3.Final.jar",
+      "notices": [
+        "META-INF/license.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "classmate-1.7.3.jar",
+      "notices": [
+        "META-INF/LICENSE",
+        "META-INF/NOTICE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "error_prone_annotations-2.50.0.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jakarta.annotation-api-3.0.0.jar",
+      "notices": [
+        "META-INF/LICENSE.md",
+        "META-INF/NOTICE.md"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "EPL 2.0",
+          "url": "https://www.eclipse.org/legal/epl-2.0"
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://www.gnu.org/software/classpath/license.html"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "hibernate-models-1.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License Version 2.0",
+          "url": "http://www.apache.org/licenses/"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jul-to-slf4j-2.0.18.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "MIT",
+          "url": "https://opensource.org/license/mit"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "slf4j-api-2.0.18.jar",
+      "notices": [
+        "META-INF/LICENSE.txt"
+      ],
+      "pom_license_metadata": [
+        {
+          "name": "MIT",
+          "url": "https://opensource.org/license/mit"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jboss-logging-3.6.3.Final.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License 2.0",
+          "url": "https://repository.jboss.org/licenses/apache-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "ecj-3.45.0.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "EPL-2.0",
+          "url": "https://www.eclipse.org/legal/epl-2.0/"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": [
+        "about.html"
+      ]
+    },
+    {
+      "jar": "jakarta.validation-api-3.1.1.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "jcip-annotations-1.0-1.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "numbers-1.8.2.jar",
+      "notices": [],
+      "pom_license_metadata": [
+        {
+          "name": "CC0-1.0",
+          "url": "http://www.creativecommons.org/publicdomain/zero/1.0/"
+        }
+      ],
+      "pom_available": true,
+      "alternative_notice_paths": []
+    },
+    {
+      "jar": "spring-boot-jarmode-tools-4.1.1.jar",
+      "notices": [
+        "META-INF/LICENSE.txt",
+        "META-INF/NOTICE.txt"
+      ],
+      "pom_license_metadata": [],
+      "pom_available": false,
+      "alternative_notice_paths": []
+    }
+  ]
+}

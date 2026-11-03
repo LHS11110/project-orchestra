@@ -1,0 +1,77 @@
+[
+  {
+    "repository": "project-agora-FE",
+    "extended_findings": [],
+    "sensitive_path_candidates": [
+      ".env.example"
+    ],
+    "binary_or_asset_paths": [
+      "docs/architecture/report/project-agora-architecture.pdf",
+      "docs/canvas-lifecycle/project-agora-canvas-lifecycle.pdf",
+      "docs/canvas-studio/axes-preview.png",
+      "docs/canvas-studio/presence.png",
+      "docs/canvas-studio/preview.png",
+      "docs/database-erd/database-erd.pdf",
+      "docs/database-erd/database-erd.png",
+      "docs/research-objects/symbol-catalog.png",
+      "docs/travel-template/assets/forest-path.jpg",
+      "docs/travel-template/assets/forest-walk.jpg",
+      "docs/travel-template/assets/hangang.jpg",
+      "docs/travel-template/assets/seoul-map.png",
+      "docs/travel-template/canvas-screenshot.png",
+      "docs/travel-template/preview.png",
+      "docs/user-flow/project-agora-user-flow.pdf",
+      "public/downloads/agora_canvas-0.1.0-py3-none-any.whl",
+      "public/downloads/agora_canvas-0.1.1-py3-none-any.whl",
+      "public/downloads/agora_canvas-0.1.2-py3-none-any.whl",
+      "\u1109\u1173\u110f\u1173\u1105\u1175\u11ab\u1109\u1163\u11ba 2026-10-27 \u110b\u1169\u110c\u1165\u11ab 11.46.25.png"
+    ]
+  },
+  {
+    "repository": "project-agora-BE",
+    "extended_findings": [],
+    "sensitive_path_candidates": [
+      ".env.example",
+      "sdk/python/src/agora_canvas/credentials.py"
+    ],
+    "binary_or_asset_paths": [
+      "spring/gradle/wrapper/gradle-wrapper.jar",
+      "spring/src/main/resources/static/favicon.png"
+    ]
+  },
+  {
+    "repository": "project-agora-DB",
+    "extended_findings": [],
+    "sensitive_path_candidates": [
+      "elasticsearch/.env.example",
+      "mssql/.env.example",
+      "redis/.env.example"
+    ],
+    "binary_or_asset_paths": []
+  },
+  {
+    "repository": "project-agora-Wall",
+    "extended_findings": [],
+    "sensitive_path_candidates": [
+      ".env.example"
+    ],
+    "binary_or_asset_paths": []
+  },
+  {
+    "repository": "project-orchestra",
+    "extended_findings": [],
+    "sensitive_path_candidates": [
+      ".env.example"
+    ],
+    "binary_or_asset_paths": [
+      "docs/chaos-userflow-2026-10-16/chaos-userflow-timeline.pdf",
+      "docs/chaos-userflow-2026-10-16/chaos-userflow-timeline.png"
+    ]
+  },
+  {
+    "repository": "hypervisor-for-agora",
+    "extended_findings": [],
+    "sensitive_path_candidates": [],
+    "binary_or_asset_paths": []
+  }
+]

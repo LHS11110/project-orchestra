@@ -16,7 +16,7 @@ def audit(root,history):
    for line in path.read_text().splitlines():
     if '=' not in line or line.lstrip().startswith('#'):continue
     key,value=line.split('=',1);value=value.strip().strip('\"\'')
-    if re.search(r'SECRET|PASSWORD|API_TOKEN',key) and len(value)>=16 and not re.search(r'change.me|example|placeholder|test.only',value,re.I):secrets.add(value.encode())
+    if re.search(r'SECRET|PASSWORD|API_TOKEN|(?:ENCRYPTION|SIGNING|PRIVATE)_KEY',key) and len(value)>=16 and not re.search(r'change.me|example|placeholder|test.only',value,re.I):secrets.add(value.encode())
  results=[]
  for name in NAMES:
   repo=root/name;tracked=[p for p in git(repo,'ls-files','-z').decode().split('\0') if p];findings=[]

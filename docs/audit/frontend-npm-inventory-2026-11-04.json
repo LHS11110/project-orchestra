@@ -1,0 +1,499 @@
+{
+  "scope": "Installed production npm dependency superset; not a claim that every package is bundled",
+  "components": [
+    {
+      "name": "@automerge/automerge",
+      "version": "3.5.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_@automerge_automerge@3.5.0/LICENSE"
+      ]
+    },
+    {
+      "name": "@mathjax/mathjax-newcm-font",
+      "version": "4.1.3",
+      "license": "Apache-2.0",
+      "notices": [
+        "npm/node_modules_@mathjax_mathjax-newcm-font@4.1.3/LICENSE-supplement.txt"
+      ],
+      "supplementalSource": "node_modules/mathjax/LICENSE"
+    },
+    {
+      "name": "@napi-rs/canvas",
+      "version": "1.0.10",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_@napi-rs_canvas@1.0.10/LICENSE"
+      ]
+    },
+    {
+      "name": "@napi-rs/canvas-linux-x64-gnu",
+      "version": "1.0.10",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_@napi-rs_canvas-linux-x64-gnu@1.0.10/LICENSE-supplement.txt"
+      ],
+      "supplementalSource": "node_modules/@napi-rs/canvas/LICENSE"
+    },
+    {
+      "name": "@napi-rs/canvas-linux-x64-musl",
+      "version": "1.0.10",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_@napi-rs_canvas-linux-x64-musl@1.0.10/LICENSE-supplement.txt"
+      ],
+      "supplementalSource": "node_modules/@napi-rs/canvas/LICENSE"
+    },
+    {
+      "name": "@pixi/colord",
+      "version": "2.9.6",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_@pixi_colord@2.9.6/LICENSE-supplement.txt"
+      ],
+      "supplementalSource": "licenses/upstream/colord-LICENSE.md"
+    },
+    {
+      "name": "@types/earcut",
+      "version": "3.0.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_@types_earcut@3.0.0/LICENSE"
+      ]
+    },
+    {
+      "name": "@types/trusted-types",
+      "version": "2.0.7",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_@types_trusted-types@2.0.7/LICENSE"
+      ]
+    },
+    {
+      "name": "@webgpu/types",
+      "version": "0.1.74",
+      "license": "BSD-3-Clause",
+      "notices": [
+        "npm/node_modules_@webgpu_types@0.1.74/LICENSE"
+      ]
+    },
+    {
+      "name": "@xmldom/xmldom",
+      "version": "0.8.15",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_@xmldom_xmldom@0.8.15/LICENSE"
+      ]
+    },
+    {
+      "name": "ansi-regex",
+      "version": "5.0.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_ansi-regex@5.0.1/license"
+      ]
+    },
+    {
+      "name": "ansi-styles",
+      "version": "4.3.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_ansi-styles@4.3.0/license"
+      ]
+    },
+    {
+      "name": "camelcase",
+      "version": "5.3.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_camelcase@5.3.1/license"
+      ]
+    },
+    {
+      "name": "cliui",
+      "version": "6.0.0",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_cliui@6.0.0/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "color-convert",
+      "version": "2.0.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_color-convert@2.0.1/LICENSE"
+      ]
+    },
+    {
+      "name": "color-name",
+      "version": "1.1.4",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_color-name@1.1.4/LICENSE"
+      ]
+    },
+    {
+      "name": "decamelize",
+      "version": "1.2.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_decamelize@1.2.0/license"
+      ]
+    },
+    {
+      "name": "dijkstrajs",
+      "version": "1.0.3",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_dijkstrajs@1.0.3/LICENSE.md"
+      ]
+    },
+    {
+      "name": "dompurify",
+      "version": "3.4.15",
+      "license": "(MPL-2.0 OR Apache-2.0)",
+      "notices": [
+        "npm/node_modules_dompurify@3.4.15/LICENSE",
+        "npm/node_modules_dompurify@3.4.15/LICENSE-MPL"
+      ]
+    },
+    {
+      "name": "earcut",
+      "version": "3.2.4",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_earcut@3.2.4/LICENSE"
+      ]
+    },
+    {
+      "name": "emoji-regex",
+      "version": "8.0.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_emoji-regex@8.0.0/LICENSE-MIT.txt"
+      ]
+    },
+    {
+      "name": "eventemitter3",
+      "version": "5.0.4",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_eventemitter3@5.0.4/LICENSE"
+      ]
+    },
+    {
+      "name": "find-up",
+      "version": "4.1.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_find-up@4.1.0/license"
+      ]
+    },
+    {
+      "name": "get-caller-file",
+      "version": "2.0.5",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_get-caller-file@2.0.5/LICENSE.md"
+      ]
+    },
+    {
+      "name": "gifuct-js",
+      "version": "2.1.2",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_gifuct-js@2.1.2/LICENSE"
+      ]
+    },
+    {
+      "name": "is-fullwidth-code-point",
+      "version": "3.0.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_is-fullwidth-code-point@3.0.0/license"
+      ]
+    },
+    {
+      "name": "ismobilejs",
+      "version": "1.1.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_ismobilejs@1.1.1/LICENSE"
+      ]
+    },
+    {
+      "name": "js-binary-schema-parser",
+      "version": "2.0.3",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_js-binary-schema-parser@2.0.3/LICENSE"
+      ]
+    },
+    {
+      "name": "js-tokens",
+      "version": "4.0.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_js-tokens@4.0.0/LICENSE"
+      ]
+    },
+    {
+      "name": "liquid-ripple",
+      "version": "0.1.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_liquid-ripple@0.1.1/LICENSE"
+      ]
+    },
+    {
+      "name": "locate-path",
+      "version": "5.0.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_locate-path@5.0.0/license"
+      ]
+    },
+    {
+      "name": "loose-envify",
+      "version": "1.4.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_loose-envify@1.4.0/LICENSE"
+      ]
+    },
+    {
+      "name": "marked",
+      "version": "14.0.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_marked@14.0.0/LICENSE.md"
+      ]
+    },
+    {
+      "name": "mathjax",
+      "version": "4.1.3",
+      "license": "Apache-2.0",
+      "notices": [
+        "npm/node_modules_mathjax@4.1.3/LICENSE"
+      ]
+    },
+    {
+      "name": "monaco-editor",
+      "version": "0.57.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_monaco-editor@0.57.0/LICENSE",
+        "npm/node_modules_monaco-editor@0.57.0/ThirdPartyNotices.txt"
+      ]
+    },
+    {
+      "name": "p-limit",
+      "version": "2.3.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_p-limit@2.3.0/license"
+      ]
+    },
+    {
+      "name": "p-locate",
+      "version": "4.1.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_p-locate@4.1.0/license"
+      ]
+    },
+    {
+      "name": "p-try",
+      "version": "2.2.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_p-try@2.2.0/license"
+      ]
+    },
+    {
+      "name": "parse-svg-path",
+      "version": "0.2.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_parse-svg-path@0.2.0/LICENSE"
+      ]
+    },
+    {
+      "name": "path-exists",
+      "version": "4.0.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_path-exists@4.0.0/license"
+      ]
+    },
+    {
+      "name": "pdfjs-dist",
+      "version": "6.4.299",
+      "license": "Apache-2.0",
+      "notices": [
+        "npm/node_modules_pdfjs-dist@6.4.299/LICENSE"
+      ]
+    },
+    {
+      "name": "perfect-freehand",
+      "version": "1.2.3",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_perfect-freehand@1.2.3/LICENSE"
+      ]
+    },
+    {
+      "name": "pixi.js",
+      "version": "8.22.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_pixi.js@8.22.0/LICENSE"
+      ]
+    },
+    {
+      "name": "pngjs",
+      "version": "5.0.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_pngjs@5.0.0/LICENSE"
+      ]
+    },
+    {
+      "name": "qrcode",
+      "version": "1.5.4",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_qrcode@1.5.4/license"
+      ]
+    },
+    {
+      "name": "quickselect",
+      "version": "3.0.0",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_quickselect@3.0.0/LICENSE"
+      ]
+    },
+    {
+      "name": "rbush",
+      "version": "4.0.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_rbush@4.0.1/LICENSE"
+      ]
+    },
+    {
+      "name": "react",
+      "version": "18.3.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_react@18.3.1/LICENSE"
+      ]
+    },
+    {
+      "name": "react-dom",
+      "version": "18.3.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_react-dom@18.3.1/LICENSE"
+      ]
+    },
+    {
+      "name": "require-directory",
+      "version": "2.1.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_require-directory@2.1.1/LICENSE"
+      ]
+    },
+    {
+      "name": "require-main-filename",
+      "version": "2.0.0",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_require-main-filename@2.0.0/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "scheduler",
+      "version": "0.23.2",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_scheduler@0.23.2/LICENSE"
+      ]
+    },
+    {
+      "name": "set-blocking",
+      "version": "2.0.0",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_set-blocking@2.0.0/LICENSE.txt"
+      ]
+    },
+    {
+      "name": "string-width",
+      "version": "4.2.3",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_string-width@4.2.3/license"
+      ]
+    },
+    {
+      "name": "strip-ansi",
+      "version": "6.0.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_strip-ansi@6.0.1/license"
+      ]
+    },
+    {
+      "name": "tiny-lru",
+      "version": "11.4.7",
+      "license": "BSD-3-Clause",
+      "notices": [
+        "npm/node_modules_tiny-lru@11.4.7/LICENSE"
+      ]
+    },
+    {
+      "name": "which-module",
+      "version": "2.0.1",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_which-module@2.0.1/LICENSE"
+      ]
+    },
+    {
+      "name": "wrap-ansi",
+      "version": "6.2.0",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_wrap-ansi@6.2.0/license"
+      ]
+    },
+    {
+      "name": "y18n",
+      "version": "4.0.3",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_y18n@4.0.3/LICENSE"
+      ]
+    },
+    {
+      "name": "yargs",
+      "version": "15.4.1",
+      "license": "MIT",
+      "notices": [
+        "npm/node_modules_yargs@15.4.1/LICENSE"
+      ]
+    },
+    {
+      "name": "yargs-parser",
+      "version": "18.1.3",
+      "license": "ISC",
+      "notices": [
+        "npm/node_modules_yargs-parser@18.1.3/LICENSE.txt"
+      ]
+    }
+  ]
+}

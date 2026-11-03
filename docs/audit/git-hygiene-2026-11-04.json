@@ -1,0 +1,54 @@
+{
+  "scope": "Local working trees and locally available Git refs; excludes remote-only refs, submodule histories and unknown secret formats",
+  "history_scanned": true,
+  "repositories": [
+    {
+      "repository": "project-agora-FE",
+      "tracked_files": 755,
+      "missed_ignore_cases": [],
+      "source_paths_wrongly_ignored": [],
+      "tracked_but_ignored": [],
+      "credential_findings": []
+    },
+    {
+      "repository": "project-agora-BE",
+      "tracked_files": 349,
+      "missed_ignore_cases": [],
+      "source_paths_wrongly_ignored": [],
+      "tracked_but_ignored": [],
+      "credential_findings": []
+    },
+    {
+      "repository": "project-agora-DB",
+      "tracked_files": 85,
+      "missed_ignore_cases": [],
+      "source_paths_wrongly_ignored": [],
+      "tracked_but_ignored": [],
+      "credential_findings": []
+    },
+    {
+      "repository": "project-agora-Wall",
+      "tracked_files": 50,
+      "missed_ignore_cases": [],
+      "source_paths_wrongly_ignored": [],
+      "tracked_but_ignored": [],
+      "credential_findings": []
+    },
+    {
+      "repository": "project-orchestra",
+      "tracked_files": 71,
+      "missed_ignore_cases": [],
+      "source_paths_wrongly_ignored": [],
+      "tracked_but_ignored": [],
+      "credential_findings": []
+    },
+    {
+      "repository": "hypervisor-for-agora",
+      "tracked_files": 62,
+      "missed_ignore_cases": [],
+      "source_paths_wrongly_ignored": [],
+      "tracked_but_ignored": [],
+      "credential_findings": []
+    }
+  ]
+}

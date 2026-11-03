@@ -1,0 +1,26 @@
+[
+  {
+    "repository": "project-agora-FE",
+    "findings": []
+  },
+  {
+    "repository": "project-agora-BE",
+    "findings": []
+  },
+  {
+    "repository": "project-agora-DB",
+    "findings": []
+  },
+  {
+    "repository": "project-agora-Wall",
+    "findings": []
+  },
+  {
+    "repository": "project-orchestra",
+    "findings": []
+  },
+  {
+    "repository": "hypervisor-for-agora",
+    "findings": []
+  }
+]
