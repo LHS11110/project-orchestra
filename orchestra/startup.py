@@ -1,5 +1,6 @@
 """Sequential single-engine Agora startup; configuration remains owned by each repository."""
 import argparse
+import ipaddress
 from dataclasses import dataclass
 import json
 import os
@@ -52,6 +53,39 @@ def repositories(workspace):
             [('fe', 'FE'), ('be', 'BE'), ('db', 'DB'), ('wall', 'Wall')]}
 
 
+def validate_network_addresses(configs):
+    """Compare resolved Compose IPs, never log full (secret-bearing) configs."""
+    subnets, addresses = {}, {}
+    for source, config in configs:
+        for definition in config.get('networks', {}).values():
+            name = definition.get('name')
+            if not name: continue
+            for entry in definition.get('ipam', {}).get('config', []):
+                if 'subnet' not in entry: continue
+                subnet = ipaddress.ip_network(entry['subnet'])
+                if subnet.version != 4: continue
+                if name in subnets and subnets[name] != subnet:
+                    raise ValueError('Conflicting subnet declarations for ' + name)
+                subnets[name] = subnet
+    for source, config in configs:
+        for service, definition in config.get('services', {}).items():
+            for alias, endpoint in definition.get('networks', {}).items():
+                network = config.get('networks', {}).get(alias, {}).get('name', alias)
+                address = (endpoint or {}).get('ipv4_address')
+                if network == 'agora-redis-ha' and not address:
+                    raise ValueError('Redis network requires an explicit static IPv4: ' + source + '/' + service)
+                if not address: continue
+                ip = ipaddress.ip_address(address)
+                subnet = subnets.get(network)
+                if ip.version != 4 or (subnet and (ip not in subnet or ip in (subnet.network_address, subnet.broadcast_address, subnet.network_address + 1))):
+                    raise ValueError('Invalid static IPv4 for ' + source + '/' + service + ' on ' + network)
+                key = (network, ip)
+                if key in addresses:
+                    raise ValueError('Duplicate static IPv4 on ' + network + ': ' + addresses[key] + ' and ' + source + '/' + service)
+                addresses[key] = source + '/' + service
+    return addresses
+
+
 def create_plan(repos, mode, wait=300, build=True, initialize=False, sql_ca=False, runtime=False):
     db, wall, be, fe = (repos[key] for key in ('db', 'wall', 'be', 'fe'))
     steps = [Step('Prepare Elasticsearch storage permissions', db,
@@ -70,6 +104,8 @@ def create_plan(repos, mode, wait=300, build=True, initialize=False, sql_ca=Fals
     if not initialize:
         steps.append(Step('Ensure search projection schema and account', db,
             ('bash', str(db / 'elasticsearch/init-search-index.sh'))))
+    steps.append(Step('Start and wait: RedisInsight', db, compose(db, 'docker-compose.yml',
+        'up', '-d', '--wait', '--wait-timeout', str(wait), 'redis-insight')))
     steps.append(Step('Start storage broker and service network', wall,
                       ('bash', str(wall / 'scripts/storage-broker-docker.sh'), 'up')))
     if build: steps.append(Step('Build backend images', be, ('bash', str(be / 'scripts/backend-docker.sh'), 'build')))
@@ -138,11 +174,14 @@ class Runner:
         self.call(('docker', 'info'), ROOT, quiet=True)
         self.call((sys.executable, str(self.repos['db'] / 'ops/configure-db.py'), 'validate', '--profile', 'development'), self.repos['db'], quiet=True)
         self.call((sys.executable, str(self.repos['be'] / 'scripts/docker-preflight.py'), *(['--build'] if self.build else [])), self.repos['be'], quiet=True)
-        for key, filename in [('db', 'docker-compose.yml'), ('wall', 'docker-compose.storage-broker.yml'),
+        network_configs = []
+        for key, filename in [('be', 'docker-compose.backend.yml'), ('db', 'docker-compose.yml'), ('wall', 'docker-compose.storage-broker.yml'),
                               ('wall', 'docker-compose.broker.yml'), ('wall', 'docker-compose.nginx.yml'),
                               ('be', 'docker-compose.search.yml'),
                               ('fe', 'compose.dev.yaml' if self.mode == 'development' else 'compose.yaml')]:
-            self.call(compose(self.repos[key], filename, 'config', '--quiet'), self.repos[key], quiet=True)
+            resolved = self.call(compose(self.repos[key], filename, 'config', '--format', 'json'), self.repos[key], quiet=True)
+            network_configs.append((key + ':' + filename, json.loads(resolved.stdout)))
+        validate_network_addresses(network_configs)
         if not self.build:
             images = ['project-agora-search:local', 'project-agora-elasticsearch:8.19.22-nori', 'agora-spring:local', 'agora-cpp:local', 'project-agora-broker:local',
                       'project-agora-frontend:dev' if self.mode == 'development' else 'project-agora-frontend:local']

@@ -81,6 +81,7 @@ docker context show
 .venv/bin/python -m unittest discover -s tests -v
 # Docker를 사용할 수 있는 격리된 환경에서만 실행; 전용 임시 컨테이너를 생성·삭제합니다.
 .venv/bin/python tests/docker_lab.py
+.venv/bin/python tests/startup_network_lab.py
 docker build -t project-orchestra:local .
 .venv/bin/python tests/container_load_lab.py
 ```
@@ -91,3 +92,13 @@ Apache 2.0 라이선스입니다. 이 저장소의 `monkey`는 Docker 환경용 
 `runtime/install`로 관리자와 NAT 네트워크 서비스를 먼저 설치해야 합니다. 시작 시
 두 서비스의 상태를 확인하고 Spring에만 관리자 소켓을 연결합니다. VM에서 시작한
 공용 IPv4 통신은 NAT로 허용하며 외부 신규 연결·호스트·사설망 접근은 차단합니다.
+
+## Redis 관리 화면과 순차 기동 IP 검증
+
+RedisInsight는 `.20`, 저장소 브로커는 Redis 측 네트워크에서 `.21`의 고정 IP를 사용한다(기본 서브넷 `172.20.0.0/16`). Redis 노드와 Sentinel은 `.2`~`.7`을 사용한다. 예전에는 RedisInsight만 `.8`로 고정되어 있고 저장소 브로커는 동적 할당이어서 브로커가 먼저 기동하면 `.8`을 선점할 수 있었다. Docker 데몬 재기동은 Orchestra의 실행 순서를 보장하지 않으므로 순서 변경만으로 해결하지 않는다.
+
+Orchestra는 해석된 Compose 설정에서 공유 네트워크의 중복 IP/서브넷 불일치를 검사하고, Redis 네트워크에 동적 IP를 사용하는 서비스를 기동 전에 거부한다. DB 노드 준비 후 RedisInsight를 HTTPS 헬스체크가 통과할 때까지 기다린 다음 저장소 브로커, Spring, C++, 검색, 실시간 브로커, 프런트엔드와 게이트웨이를 순서대로 기동한다. RedisInsight도 개발/운영 기동 계획에 포함된다.
+
+`tests/startup_network_lab.py`는 운영 컨테이너를 건드리지 않는 임시 네트워크에서 기존 충돌을 실제로 재현하고, 고정 IP 구성으로 두 서비스의 기동 순서와 재시작 순서를 바꾸어 검증한다. GitHub Actions에서도 단위 테스트와 함께 실행한다.
+
+실제 기동 결과와 재현 방법: [순차 기동 검증 보고서](docs/STARTUP_NETWORK_VALIDATION.md).

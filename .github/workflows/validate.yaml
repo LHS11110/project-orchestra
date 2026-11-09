@@ -19,6 +19,8 @@ jobs:
           sh -n scripts/container-entrypoint.sh
           sh -n scripts/public-tls.sh
           sh -n deploy/certbot/reload-nginx.sh
+      - name: Cold-start network allocation and static IP collision regression
+        run: python -u tests/startup_network_lab.py
       - name: Docker fault injection and recovery (dynamic and static IPAM)
         run: python -u tests/docker_lab.py
   container-smoke:

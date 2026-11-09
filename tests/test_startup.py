@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from orchestra.startup import DB_SERVICES, Runner, create_plan, main, read_settings, repositories
+from orchestra.startup import DB_SERVICES, Runner, create_plan, main, read_settings, repositories, validate_network_addresses
 
 
 class StartupTests(unittest.TestCase):
@@ -17,7 +17,27 @@ class StartupTests(unittest.TestCase):
         starts = [step for step in plan if step.name.startswith('Start and wait:')]
         self.assertEqual([step.name.split(': ', 1)[1] for step in starts[:8]], list(DB_SERVICES))
         for step in starts[:8]: self.assertIn('--wait', step.command)
-        self.assertFalse(any('redisinsight' in arg for step in plan for arg in step.command))
+        insight = next(step for step in plan if step.name == 'Start and wait: RedisInsight')
+        self.assertIn('--wait', insight.command)
+        self.assertIn('redis-insight', insight.command)
+        self.assertLess(plan.index(insight), next(i for i, step in enumerate(plan) if step.name == 'Start storage broker and service network'))
+    def test_redis_management_is_started_in_both_modes(self):
+        for mode in ('development', 'production'):
+            names = [s.name for s in create_plan(self.repos, mode, initialize=True)]
+            self.assertLess(names.index('Initialize Redis ACL/index and SQL registry'), names.index('Start and wait: RedisInsight'))
+            self.assertLess(names.index('Start and wait: RedisInsight'), names.index('Start storage broker and service network'))
+
+    def test_network_validation_catches_dynamic_clients_collisions_and_invalid_subnets(self):
+        def config(service, ip, subnet=None):
+            return {'networks': {'redis': {'name': 'agora-redis-ha', **({'ipam': {'config': [{'subnet': subnet}]}} if subnet else {})}}, 'services': {service: {'networks': {'redis': {'ipv4_address': ip} if ip else {}}}}}
+        db = config('insight', '172.20.0.20', '172.20.0.0/16')
+        good = config('broker', '172.20.0.21')
+        self.assertEqual(len(validate_network_addresses([('db', db), ('wall', good)])), 2)
+        for broken, message in [(config('broker', None), 'explicit static'), (config('broker', '172.20.0.20'), 'Duplicate'), (config('broker', '192.168.0.2'), 'Invalid'), (config('broker', '172.20.0.1'), 'Invalid')]:
+            with self.assertRaisesRegex(ValueError, message): validate_network_addresses([('db', db), ('wall', broken)])
+        with self.assertRaisesRegex(ValueError, 'Conflicting subnet'):
+            validate_network_addresses([('db', db), ('wall', config('broker', '172.21.0.21', '172.21.0.0/16'))])
+
     def test_backend_order_and_tls_initialization(self):
         plan = create_plan(self.repos, 'development', sql_ca=True)
         names = [step.name for step in plan]
