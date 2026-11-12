@@ -24,7 +24,7 @@ function socket(token,canvas,client){
  return {ws,read};
 }
 async function setup(){
- await http('/api/auth/signup',{email:cfg.email,password:cfg.password,nickname:'Chaos laboratory'},undefined,'POST',15000);
+ await http('/api/auth/signup',{email:cfg.email,password:cfg.password,nickname:'Chaos laboratory',emailVerificationToken:cfg.emailVerificationToken},undefined,'POST',15000);
  const auth=await login();
  const canvas=await http('/api/canvases',{canvasName:'Chaos userflow lab',description:'Disposable availability experiment'},auth.accessToken,'POST',15000);
  fs.writeFileSync('/lab/canvas.json',JSON.stringify(canvas));
@@ -70,7 +70,39 @@ async function run(){
  }
  await Promise.allSettled([...active]);console.log('Load generator drained.');
 }
-if(process.argv[2]==='setup')await setup();else if(process.argv[2]==='audit'){
+async function features(){
+ const {textDelta}=await import('/lab/itemDelta.mjs');
+ cfg.canvas=JSON.parse(fs.readFileSync('/lab/canvas.json')).canvas_id;
+ const auth=await login(),access=await http(`/api/canvases/${cfg.canvas}/access`,{},auth.accessToken),client=randomUUID(),connection=socket(access.canvas_access_token,cfg.canvas,client);let count=0;
+ async function rpc(service){const request_id=randomUUID();connection.ws.send(JSON.stringify({type:'runtime_execute',action:'service',request_id,service}));const response=await connection.read(e=>e.request_id===request_id&&(e.type==='runtime_result'||e.type==='error'),20000);if(!response.ok)throw Error('SERVICE_'+(response.code||response.message));return response.result;}
+ async function ops(operations){const request_id=randomUUID();connection.ws.send(JSON.stringify({type:'canvas_ops',client_id:client,request_count:++count,request_id,operations}));const result=await connection.read(e=>e.request_id===request_id&&e.type==='canvas_result',10000);if(!result.ok)throw Error('FEATURE_SAVE_'+result.code);return connection.read(e=>e.request_id===request_id&&e.type==='canvas_commit',10000);}
+ try{
+  await connection.read(e=>e.type==='init_items',10000);connection.ws.send(JSON.stringify({type:'canvas_sync',delta_commits:true,client_id:client,request_id:randomUUID()}));await connection.read(e=>e.type==='canvas_snapshot',10000);
+  const id='feature-notebook';const before='x'.repeat(20000);
+  await ops([{action:'create',id,patch:{kind:'shape',shapeType:'rectangle',runtimeRole:'notebook',x:0,y:0,width:.5,height:.6,permission:'default',notebookCells:[{id:'a',cellType:'code',source:before},{id:'b',cellType:'code',source:'untouched'}],notebookResults:{}}}]);
+  const commit=await ops([{action:'patch',id,patch:{},notebook_edits:[{id:'a',patch:{},source_delta:textDelta(before,before+'!')}]}]);
+  if(commit.items?.[id]||!commit.patches?.[id]||JSON.stringify(commit).includes(before))throw Error('NOTEBOOK_DELTA_NOT_COMPACT');
+  await ops([{action:'patch',id,patch:{},notebook_structure:{order:['a','b','c'],insert:[{id:'c',cellType:'code',source:'new cell'}],remove:[]}}]);
+  await ops([{action:'patch',id,patch:{},notebook_results:{set:{a:{outputs:[{output_type:'stream',text:'first output'}],exitCode:0}},remove:[]}}]);
+  await ops([{action:'patch',id,patch:{},notebook_results:{set:{b:{outputs:[{output_type:'stream',text:'second output'}],exitCode:0}},remove:[]}}]);
+  await ops([{action:'create',id:'feature-code',patch:{kind:'text',renderMode:'code',language:'python',text:before,x:0,y:0,width:.3,height:.2,permission:'default'}}]);
+  await ops([{action:'patch',id:'feature-code',patch:{},text_edits:{text:textDelta(before,before+'!')}}]);
+  const staleId=randomUUID();connection.ws.send(JSON.stringify({type:'canvas_ops',client_id:client,request_count:count+1,request_id:staleId,operations:[{action:'patch',id:'feature-code',patch:{},text_edits:{text:textDelta(before,before+'?')}}]}));
+  const stale=await connection.read(e=>e.request_id===staleId&&(e.type==='error'||e.type==='canvas_result'),10000);if(stale.code!=='CANVAS_TEXT_CONFLICT')throw Error('STALE_TEXT_ACCEPTED');
+  await ops([{action:'patch',id:'feature-code',patch:{},text_edits:{text:textDelta(before+'!',before+'!?')}}]);
+  connection.ws.send(JSON.stringify({type:'canvas_sync',delta_commits:true,client_id:client,request_id:randomUUID()}));const current=await connection.read(e=>e.type==='canvas_snapshot',10000);
+  if(current.items[id].notebookCells.length!==3||current.items[id].notebookCells[1].source!=='untouched'||current.items[id].notebookResults.a.outputs[0].text!=='first output'||current.items[id].notebookResults.b.outputs[0].text!=='second output'||current.items['feature-code'].text!==before+'!?')throw Error('NOTEBOOK_DELTA_STATE_MISMATCH');
+  const bots=await rpc({operation:'api',method:'GET',path:'/bots'});if(!Array.isArray(bots))throw Error('BOT_LIST_INVALID');
+  const created=await rpc({operation:'api',method:'POST',path:'/bots',body:{name:'Chaos service fixture'}});if(!created.bot?.user_id)throw Error('BOT_CREATE_INVALID');await rpc({operation:'api',method:'DELETE',path:'/bots/'+created.bot.user_id});
+  const context=await rpc({operation:'api',method:'GET',path:'/github'});if(!context||typeof context!=='object')throw Error('GITHUB_CONTEXT_INVALID');
+  const gif=Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7','base64');
+  const upload=await rpc({operation:'upload_begin',path:'/media',files:[{field:'file',name:'fixture.gif',type:'image/gif',size:gif.length}]});
+  const chunk={operation:'upload_chunk',path:'/media',uploadId:upload.uploadId,index:0,offset:0,data:gif.toString('base64')};await rpc(chunk);await rpc(chunk);
+  const file=await rpc({operation:'upload_finish',path:'/media',uploadId:upload.uploadId});const resource=await rpc({operation:'resource',path:file.url.replace(`/api/canvases/${cfg.canvas}`,''),offset:0});if(!Buffer.from(resource.data,'base64').equals(gif))throw Error('FILE_ROUNDTRIP_MISMATCH');
+  console.log('Features passed: compact notebook edit/commit, bot list/create/revoke, repository context, chunk retry and binary file roundtrip.');
+ }finally{connection.ws.close();}
+}
+if(process.argv[2]==='features')await features();else if(process.argv[2]==='setup')await setup();else if(process.argv[2]==='audit'){
  cfg.canvas=JSON.parse(fs.readFileSync('/lab/canvas.json')).canvas_id;
  // A separate fault-free control after all injected faults have recovered.
  const healthyTasks=[], healthyOrigin=Date.now();

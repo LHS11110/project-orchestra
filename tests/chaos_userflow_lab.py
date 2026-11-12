@@ -5,6 +5,7 @@ No published ports and no production data volumes are attached. Faults are
 executed only through Orchestra's inventory/label/network guarded chaos runner.
 """
 import argparse
+import hashlib
 import collections
 import ipaddress
 import json
@@ -146,10 +147,14 @@ class Lab:
             m=next(m for m in raw['Mounts'] if m['Destination']==destination);ca+=Path(m['Source']).read_text()+'\n'
         (self.directory/'ca-bundle.pem').write_text(ca)
         shutil.copy(ROOT/'tests/chaos_userflow_worker.mjs',self.directory/'worker.mjs')
+        shutil.copy(ROOT.parent/'project-agora-FE/src/canvas/sync/itemDelta.js',self.directory/'itemDelta.mjs')
         # Worker uses the same Node image as the FE, without serving any ports.
         image=inspect('project-agora-frontend:local')['Id']
         self.create('worker',overrides=worker_env,aliases=['load-worker'],number=50,extra=[image,'--user','0','--mount',f'type=bind,src={self.directory},dst=/lab'],entrypoint='sleep',command=['3600'])
         esenv=env(self.raw['elasticsearch']);private={'email':'chaos@example.invalid','password':'Chaos-'+uuid.uuid4().hex,'esAdmin':esenv['ELASTIC_PASSWORD'],'esUser':esenv['ES_USER_NAME'],'esPassword':esenv['ES_USER_PASSWORD'],'esLogUser':esenv['ES_LOG_USER_NAME'],'esLogPassword':esenv['ES_LOG_USER_PASSWORD']}
+        private['emailVerificationToken']=uuid.uuid4().hex
+        proof=hashlib.sha256(private['emailVerificationToken'].encode()).hexdigest()
+        self.sql("USE agora_db; INSERT INTO auth_email_verification(email,grant_hash,grant_expires_at,consumed) VALUES(N'chaos@example.invalid','"+proof+"',DATEADD(minute,30,SYSUTCDATETIME()),0);")
         (self.directory/'private.json').write_text(json.dumps(private));(self.directory/'private.json').chmod(0o600)
         (self.directory/'init-es.mjs').write_text('''import fs from 'node:fs';const c=JSON.parse(fs.readFileSync('/lab/private.json'));async function put(path,body){let r=await fetch('https://agora-elasticsearch:9200/'+path,{method:'PUT',headers:{Authorization:'Basic '+Buffer.from('elastic:'+c.esAdmin).toString('base64'),'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(3000)});if(!r.ok)throw new Error('ES_INIT_'+r.status);}await put('_security/role/agora-lab',{cluster:[],indices:[{names:['canvas','canvas-search'],privileges:['read','write','view_index_metadata','create_index']}]});await put('_security/user/'+c.esUser,{password:c.esPassword,roles:['agora-lab']});await put('_security/role/agora-lab-log',{cluster:[],indices:[{names:['agora-logs','agora-logs-*'],privileges:['auto_configure','create_doc']}]});await put('_security/user/'+c.esLogUser,{password:c.esLogPassword,roles:['agora-lab-log']});await put('canvas',{settings:{number_of_shards:1,number_of_replicas:0},mappings:{properties:{'canvas-name':{type:'text',fields:{keyword:{type:'keyword'}}},'canvas-id':{type:'long'},'admin-user-id':{type:'long'},people:{type:'long'},'init-group':{type:'keyword'},items:{type:'object'}}}});''')
         def init_es():
@@ -162,6 +167,7 @@ class Lab:
 resolver 127.0.0.11 valid=1s; proxy_ssl_trusted_certificate /etc/nginx/ssl/agora/ca.pem; proxy_ssl_verify on; proxy_ssl_server_name on;
 location /api/ { set $target agora-spring; proxy_ssl_name agora-spring; proxy_pass https://$target:8080; proxy_set_header X-Forwarded-For $remote_addr; proxy_set_header X-Real-IP $remote_addr; proxy_set_header Host $host; }
 location ~ ^/wss/port/(?<wsport>[0-9]+)/canvas/(?<canvas>[0-9]+)$ { set $broker agora-broker; proxy_ssl_name agora-broker; proxy_pass https://$broker:4443/broker/websocket?canvas_id=$canvas&ws_port=$wsport&rtc=false&token=$arg_token&client_id=$arg_client_id; proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection Upgrade; proxy_set_header X-Real-IP $remote_addr; proxy_set_header Host $host; access_log off; }
+location = /internal/canvas/socket { set $service agora-spring; proxy_ssl_name agora-spring; proxy_pass https://$service:8080/internal/canvas/socket; proxy_set_header X-Agora-Internal-Token $http_x_agora_internal_token; client_max_body_size 1m; access_log off; }
 location /api/port/ { return 404; }
 location ~ ^/internal/cpp/servers/[0-9]+/(?<cpppath>api/.*|health)$ { set $cpp agora-cpp; proxy_ssl_name agora-cpp; proxy_pass https://$cpp:8000/$cpppath$is_args$args; proxy_set_header X-Agora-Internal-Token $http_x_agora_internal_token; proxy_set_header Host agora-cpp; }
 }'''
@@ -174,6 +180,15 @@ location ~ ^/internal/cpp/servers/[0-9]+/(?<cpppath>api/.*|health)$ { set $cpp a
             call('exec',self.names['worker'],'node','--input-type=module','-e',code,timeout=8);return True
         self.wait(health,'isolated Spring through TLS gateway')
         print(self.worker('setup'),flush=True)
+        try:
+            print(self.worker('features',timeout=90),flush=True)
+        except RuntimeError:
+            import re
+            for key in ['spring','broker','gateway']:
+                diagnostic=call('logs','--tail','100',self.names[key])
+                diagnostic=re.sub(r'eyJ[A-Za-z0-9_.-]+','[redacted-jwt]',diagnostic)
+                (self.directory/(key+'-feature-diagnostic.log')).write_text(diagnostic)
+            raise
         print(self.worker('probe'),flush=True)
         first=json.loads((self.directory/'requests.jsonl').read_text().splitlines()[-1])
         if not first['ok']:
@@ -206,7 +221,7 @@ location ~ ^/internal/cpp/servers/[0-9]+/(?<cpppath>api/.*|health)$ { set $cpp a
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--rounds',type=int,default=3);parser.add_argument('--targets',default='gateway,spring,broker,cpp,storage,sql,es,redis-primary');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--features-only',action='store_true');parser.add_argument('--rounds',type=int,default=3);parser.add_argument('--targets',default='gateway,spring,broker,cpp,storage,sql,es,redis-primary');args=parser.parse_args()
     allowed={'gateway','spring','broker','cpp','storage','sql','es','redis-primary'}
     selected=args.targets.split(',')
     if not 1<=args.rounds<=10 or len(set(selected))!=len(selected) or not set(selected)<=allowed:
@@ -214,6 +229,9 @@ def main():
     lab=Lab();print('Disposable run:',lab.tag,flush=True)
     try:
         lab.bootstrap()
+        if args.features_only:
+            print('Feature integration complete:',lab.directory,flush=True)
+            return
         call('exec','-d',lab.names['worker'],'node','/lab/worker.mjs','run')
         targets=args.targets.split(',');rng=random.Random(20261015);events=[]
         config={'recovery_timeout':60,'nodes':{k:{'container':lab.names[k],'compose_project':lab.tag,'networks':[lab.network],'faults':['pause']} for k in targets}}
