@@ -42,6 +42,7 @@ class StartupTests(unittest.TestCase):
         plan = create_plan(self.repos, 'development', sql_ca=True)
         names = [step.name for step in plan]
         self.assertLess(names.index('Refresh backend and frontend TLS volumes'), names.index('Start and wait: spring'))
+        self.assertLess(names.index('Start and wait: agent'), names.index('Start and wait: cpp'))
         self.assertLess(names.index('Start and wait: spring'), names.index('Start and wait: cpp'))
         self.assertLess(names.index('Start and wait: cpp'), names.index('Start and wait: Phoenix broker'))
         for step in plan:

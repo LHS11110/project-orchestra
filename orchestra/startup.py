@@ -115,7 +115,7 @@ def create_plan(repos, mode, wait=300, build=True, initialize=False, sql_ca=Fals
     if runtime:
         steps.append(Step('Verify canvas runtime egress', be, ('systemctl', 'is-active', '--quiet', 'agora-runtime-egress.service')))
         steps.append(Step('Verify canvas runtime manager', be, ('systemctl', 'is-active', '--quiet', 'agora-runtime-manager.service')))
-    for service in ('spring', 'cpp'):
+    for service in ('agent', 'spring', 'cpp'):
         overrides = (('docker-compose.sql-ca.yml',) if sql_ca else ()) + (('docker-compose.runtime.yml',) if runtime and service == 'spring' else ())
         steps.append(Step('Start and wait: ' + service, be, compose(be, 'docker-compose.backend.yml',
             'up', '-d', '--no-build', '--no-deps', '--force-recreate', '--wait', '--wait-timeout', str(wait), service,
