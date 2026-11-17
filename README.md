@@ -102,3 +102,5 @@ Orchestra는 해석된 Compose 설정에서 공유 네트워크의 중복 IP/서
 `tests/startup_network_lab.py`는 운영 컨테이너를 건드리지 않는 임시 네트워크에서 기존 충돌을 실제로 재현하고, 고정 IP 구성으로 두 서비스의 기동 순서와 재시작 순서를 바꾸어 검증한다. GitHub Actions에서도 단위 테스트와 함께 실행한다.
 
 실제 기동 결과와 재현 방법: [순차 기동 검증 보고서](docs/STARTUP_NETWORK_VALIDATION.md).
+
+Wall 미디어 중계는 설정 준비와 건강 상태 확인 후 Phoenix보다 먼저 시작됩니다. 최초 운영 배포에는 Wall의 `media/README.md`에 설명된 호스트 TCP/443 분기와 신뢰할 수 있는 TLS 인증서가 필요합니다. 미디어 컨테이너는 내부 전용 `10.42.0.0/24` 네트워크를 사용합니다.

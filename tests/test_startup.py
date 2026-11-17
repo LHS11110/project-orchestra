@@ -38,6 +38,12 @@ class StartupTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Conflicting subnet'):
             validate_network_addresses([('db', db), ('wall', config('broker', '172.21.0.21', '172.21.0.0/16'))])
 
+    def test_media_relay_is_prepared_and_started_before_authenticated_signaling(self):
+        for mode in ('development', 'production'):
+            names = [step.name for step in create_plan(self.repos, mode)]
+            self.assertLess(names.index('Prepare Wall media relay configuration'), names.index('Start and wait: Wall media relay'))
+            self.assertLess(names.index('Start and wait: Wall media relay'), names.index('Start and wait: Phoenix broker'))
+
     def test_backend_order_and_tls_initialization(self):
         plan = create_plan(self.repos, 'development', sql_ca=True)
         names = [step.name for step in plan]

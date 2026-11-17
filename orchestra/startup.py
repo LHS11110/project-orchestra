@@ -124,6 +124,10 @@ def create_plan(repos, mode, wait=300, build=True, initialize=False, sql_ca=Fals
         'up', '-d', '--wait', '--wait-timeout', str(wait), '--build' if build else '--no-build', 'search-embedding')))
     steps.append(Step('Verify backend HTTPS and log account', be,
                       ('bash', str(be / 'scripts/backend-docker.sh'), 'health')))
+    steps.append(Step('Prepare Wall media relay configuration', wall,
+                      (sys.executable, str(wall / 'scripts/setup-media.py'))))
+    steps.append(Step('Start and wait: Wall media relay', wall, compose(wall, 'docker-compose.media.yml',
+        'up', '-d', '--wait', '--wait-timeout', str(wait), 'turn')))
     steps.append(Step('Refresh Phoenix TLS volume', wall, compose(wall, 'docker-compose.broker.yml',
         'run', '--rm', '--no-deps', 'broker-tls-init')))
     steps.append(Step('Start and wait: Phoenix broker', wall, compose(wall, 'docker-compose.broker.yml',
@@ -176,7 +180,7 @@ class Runner:
         self.call((sys.executable, str(self.repos['be'] / 'scripts/docker-preflight.py'), *(['--build'] if self.build else [])), self.repos['be'], quiet=True)
         network_configs = []
         for key, filename in [('be', 'docker-compose.backend.yml'), ('db', 'docker-compose.yml'), ('wall', 'docker-compose.storage-broker.yml'),
-                              ('wall', 'docker-compose.broker.yml'), ('wall', 'docker-compose.nginx.yml'),
+                              ('wall', 'docker-compose.broker.yml'), ('wall', 'docker-compose.media.yml'), ('wall', 'docker-compose.nginx.yml'),
                               ('be', 'docker-compose.search.yml'),
                               ('fe', 'compose.dev.yaml' if self.mode == 'development' else 'compose.yaml')]:
             resolved = self.call(compose(self.repos[key], filename, 'config', '--format', 'json'), self.repos[key], quiet=True)
