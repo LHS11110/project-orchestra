@@ -79,3 +79,14 @@ Redis Insight HTTP 관리 UI, Locust 부하·카오스 도구, 별도 백업 cro
 공개 443 포트의 호스트 Nginx가 Wall의 loopback HTTPS 포트(현재 서버는 8444)로 중계한다면, 일반 `/` 경로도 HTTP/1.1 및 WebSocket `Upgrade`·`Connection` 헤더를 전달해야 Vite HMR이 연결됩니다. 캔버스 전용 `/wss/` 경로만 WebSocket을 허용하면 화면은 열려도 자동 갱신은 작동하지 않습니다. 호스트는 `X-Real-IP`를 실제 접속자 IP로 설정하고 Wall의 `NGINX_TRUSTED_PROXY_IP`에는 해당 프록시의 정확한 Docker 측 IP를 지정합니다.
 
 인증서와 환경 파일이 준비된 기존 환경에서는 `./scripts/start-dev.sh` 한 번으로 개발 모드를 시작합니다. 초기화가 완료된 환경에서는 `./scripts/start-dev.sh --skip-initialize --no-build`로 기존 이미지와 데이터를 사용해 재기동할 수 있습니다. 소스 변경은 Vite bind mount로 반영되므로 FE 이미지 재빌드가 필요하지 않습니다. `./scripts/start-deploy.sh --no-build`로 기존 운영 이미지에 복귀할 수 있으며, 운영 FE에 소스 변경까지 반영하려면 기본 `./scripts/start-deploy.sh`를 실행합니다.
+
+## Agora 에이전트 릴리스
+
+Orchestra의 **Deploy Agora agent** GitHub Actions는 `main`에서 수동 실행합니다. `agora-production` 환경을 보호하고 배포 호스트·워크스페이스 변수 `AGORA_DEPLOY_SSH_HOST`, `AGORA_DEPLOY_WORKSPACE`와 환경 비밀 `AGORA_DEPLOY_SSH_KEY`, `AGORA_DEPLOY_KNOWN_HOSTS`를 설정합니다. 배포 호스트의 네 체크아웃은 작업 트리가 깨끗한 `main`이어야 합니다. 워크플로는 입력한 커밋이 각 원격 `main`의 현재 HEAD와 일치할 때만 fast-forward 합니다. 동일한 릴리스 스크립트를 호스트에서 실행할 수도 있습니다.
+
+```sh
+scripts/deploy-agora-agent.sh --check WORKSPACE FE_SHA BE_SHA WALL_SHA DB_SHA
+scripts/deploy-agora-agent.sh --allow-backend-restart WORKSPACE FE_SHA BE_SHA WALL_SHA DB_SHA
+```
+
+빌드가 모두 성공한 뒤 새 약관 행을 추가하고 에이전트·Spring·C++·Phoenix를 교체합니다. Nginx를 유지한 채 정적 프런트엔드 링크를 원자적으로 전환합니다. 현재 단일 인스턴스에서 백엔드 교체 중 요청이나 WebSocket이 일시적으로 끊길 수 있어 워크플로에 명시적인 재시작 확인 입력이 있습니다. 전체 무중단을 보장하려면 백엔드 중복 인스턴스와 연결 드레이닝이 필요합니다.

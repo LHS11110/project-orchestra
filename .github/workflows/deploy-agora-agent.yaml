@@ -1,0 +1,59 @@
+name: Deploy Agora agent
+on:
+  workflow_dispatch:
+    inputs:
+      fe_sha:
+        description: Full project-agora-FE commit SHA
+        required: true
+      be_sha:
+        description: Full project-agora-BE commit SHA
+        required: true
+      wall_sha:
+        description: Full project-agora-Wall commit SHA
+        required: true
+      db_sha:
+        description: Full project-agora-DB commit SHA
+        required: true
+      allow_backend_restart:
+        description: Acknowledge that the single-instance backend may disconnect clients
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: agora-production
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main' && inputs.allow_backend_restart
+    runs-on: ubuntu-latest
+    environment: agora-production
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy verified revisions
+        env:
+          DEPLOY_HOST: ${{ vars.AGORA_DEPLOY_SSH_HOST }}
+          DEPLOY_WORKSPACE: ${{ vars.AGORA_DEPLOY_WORKSPACE }}
+          DEPLOY_KEY: ${{ secrets.AGORA_DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.AGORA_DEPLOY_KNOWN_HOSTS }}
+          FE_SHA: ${{ inputs.fe_sha }}
+          BE_SHA: ${{ inputs.be_sha }}
+          WALL_SHA: ${{ inputs.wall_sha }}
+          DB_SHA: ${{ inputs.db_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for sha in "$FE_SHA" "$BE_SHA" "$WALL_SHA" "$DB_SHA"; do [[ $sha =~ ^[a-f0-9]{40}$ ]]; done
+          [[ $DEPLOY_HOST =~ ^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+$ ]]
+          [[ $DEPLOY_WORKSPACE =~ ^/[a-zA-Z0-9._/-]+$ ]]
+          [[ -n $DEPLOY_KEY && -n $DEPLOY_KNOWN_HOSTS ]]
+          ssh_dir=$(mktemp -d)
+          trap 'rm -rf "$ssh_dir"' EXIT
+          umask 077
+          printf '%s\n' "$DEPLOY_KEY" > "$ssh_dir/key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$ssh_dir/known_hosts"
+          ssh -T -i "$ssh_dir/key" -o BatchMode=yes -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$ssh_dir/known_hosts" \
+            "$DEPLOY_HOST" bash -s -- --sync-main --allow-backend-restart "$DEPLOY_WORKSPACE" \
+            "$FE_SHA" "$BE_SHA" "$WALL_SHA" "$DB_SHA" < scripts/deploy-agora-agent.sh
